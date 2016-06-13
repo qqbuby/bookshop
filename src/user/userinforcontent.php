@@ -1,12 +1,12 @@
-﻿<!-- JavaScript -->
-<script type="text/javascript" language="javascript" src="Script/getXMLHttpObject.js"></script>
-<script type="text/javascript" language="javascript" src="Script/fold.js"></script>
-<script type="text/javascript" language="javascript" src="Script/page.js"></script>
+﻿<!-- Javascript -->
+<script type="text/javascript" language="javascript" src="/script/getxmlhttpobject.js"></script>
+<script type="text/javascript" language="javascript" src="/script/fold.js"></script>
+<script type="text/javascript" language="javascript" src="/script/page.js"></script>
 <script type="text/javascript" language="javascript">
 /*---myInfo------*/
 function userInfo(page,msg) {
 	var xmlHttp = getXMLHttpObject();
-	var url = "User/" + page + ".php?" + msg + "&" + Math.random();
+	var url = "/user/" + page + ".php?" + msg + "&" + Math.random();
 	xmlHttp.onreadystatechange = function () {
 		if(xmlHttp.readyState == 4){
 			if(xmlHttp.status == 200){
@@ -40,7 +40,7 @@ function checkPassword() {
 		}else{
 			document.getElementById('oldPasswordTip').innerHTML = "";
 			var xmlHttp = getXMLHttpObject();
-			var url = "user/myInfo.php";
+			var url = "/user/myinfo.php";
 			var sbody = "oldPassword=" + oldPassword.value;
 			xmlHttp.onreadystatechange = function () {
 				if(xmlHttp.readyState == 4)	{
@@ -90,7 +90,7 @@ function changePassword(){
 	}else{
 		document.getElementById('oldPasswordTip').innerHTML = "";
 		var xmlHttp = getXMLHttpObject();
-		var url     = "user/myInfo.php";
+		var url     = "/user/myinfo.php";
 		var sbody   = "oldPassword=" + oldPassword.value;
 		xmlHttp.onreadystatechange = function () {
 			if(xmlHttp.readyState == 4)	{
@@ -125,7 +125,7 @@ function changePassword(){
 	}
 	/*---Submit the changePasswordFrom----*/
 	var xmlHttp = getXMLHttpObject();
-	var url = "user/myInfo.php";
+	var url = "/user/myinfo.php";
 	var sbody = "newPassword=" + newPassword0.value;
 	xmlHttp.onreadystatechange = function () {
 		if(xmlHttp.readyState == 4){
@@ -142,7 +142,7 @@ function changePassword(){
 }
 /*------------perfect personal information-----------*/
 function perfectInfo(){
-	document.getElementsByName('MbBirthday')[0].onblur = function () {
+	document.getElementsByName('mbbirthday')[0].onblur = function () {
 		var regDate = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
 		if(!regDate.test(this.value)){
 			alert('日期格式不正确');
@@ -157,33 +157,33 @@ function perfectInfo(){
 		if (TF == false){
 			return false;
 		}
-		var MbGender = getValue('MbGender');
-		var MbBirthday = getValue('MbBirthday');
-		var MbCountry = getValue('MbCountry');
-		var MbProvince = getValue('MbProvince');
-		var MbCity = getValue('MbCity');
-		var MbPostalCode =getValue('MbPostalCode');
-		var MbAddress = getValue('MbAddress');
-		var MbPhone = getValue('MbPhone');
-		var MbMobile = getValue('MbMobile');
-		var MbTrueName = getValue('MbTrueName');
-		var MbEmail = getValue('MbEmail');
-		var MbQuestion = getValue('MbQuestion');
-		var MbAnswer = getValue('MbAnswer');
+		var mbgender = getValue('mbgender');
+		var mbbirthday = getValue('mbbirthday');
+		var mbcountry = getValue('mbcountry');
+		var mbprovince = getValue('mbprovince');
+		var mbcity = getValue('mbcity');
+		var mbpostalcode =getValue('mbpostalcode');
+		var mbaddress = getValue('mbaddress');
+		var mbphone = getValue('mbphone');
+		var mbmobile = getValue('mbmobile');
+		var mbtruename = getValue('mbtruename');
+		var mbemail = getValue('mbemail');
+		var mbquestion = getValue('mbquestion');
+		var mbanswer = getValue('mbanswer');
 		/*---简单的验证日期,哈，我自己写的第一个正则表达式---*/
 		var regDate = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
-		if(!regDate.test(MbBirthday)){
+		if(!regDate.test(mbbirthday)){
 			alert('日期格式不正确');
-			document.getElementsByName('MbBirthday')[0].style.color="red";
+			document.getElementsByName('mbbirthday')[0].style.color="red";
 			return false;
 		}else{
-			document.getElementsByName('MbBirthday')[0].style.color="";
+			document.getElementsByName('mbbirthday')[0].style.color="";
 		}
-		var url = "user/myInfo.php";
-		var sbody = "MbGender="+MbGender+"&MbCountry="+MbCountry+"&MbProvince="+MbProvince;
-		sbody += "&MbBirthday="+MbBirthday+"&MbCity="+MbCity+"&MbPostalCode="+MbPostalCode;
-		sbody += "&MbAddress="+MbAddress+"&MbPhone="+MbPhone+"&MbMobile="+MbMobile;
-		sbody += "&MbTrueName="+MbTrueName+"&MbEmail="+MbEmail+"&MbQuestion="+MbQuestion+"&MbAnswer="+MbAnswer;
+		var url = "/user/myinfo.php";
+		var sbody = "mbgender="+mbgender+"&mbcountry="+mbcountry+"&mbprovince="+mbprovince;
+		sbody += "&mbbirthday="+mbbirthday+"&mbcity="+mbcity+"&mbpostalcode="+mbpostalcode;
+		sbody += "&mbaddress="+mbaddress+"&mbphone="+mbphone+"&mbmobile="+mbmobile;
+		sbody += "&mbtruename="+mbtruename+"&mbemail="+mbemail+"&mbquestion="+mbquestion+"&mbanswer="+mbanswer;
 		var xmlHttp = getXMLHttpObject();
 		xmlHttp.onreadystatechange=function (){
 			if(xmlHttp.readyState==4){
@@ -201,8 +201,8 @@ function getValue(name){
 	return document.getElementsByName(name)[0].value;
 }
 /*update Cart Count............ */
-function updateCart(BookId){
-	var changeCount = document.getElementsByName('count'+BookId)[0].value;
+function updateCart(bookid){
+	var changeCount = document.getElementsByName('count'+bookid)[0].value;
 	/*--- verify the validity of the value of the changeCount--*/
 	if(changeCount < 0){
 		var TF = confirm('对不起,我们是卖书滴，不收书!');
@@ -215,8 +215,8 @@ function updateCart(BookId){
 			}
 		}
 	}
-	var url = "user/myCart.php";
-	var sbody = "updateCart=" + BookId + "&changeCount=" + changeCount;
+	var url = "/user/mycart.php";
+	var sbody = "updateCart=" + bookid + "&changeCount=" + changeCount;
 	var xmlHttp = getXMLHttpObject();
 	xmlHttp.onreadystatechange = function(){
 		if(xmlHttp.readyState == 4){
@@ -234,13 +234,13 @@ function updateCart(BookId){
 	return false;
 }
 /*delete Cart .............*/
-function deleteCart(BookId){
+function deleteCart(bookid){
 	var TF = confirm('走过路过，千万别错过!');
 	if(TF==false){
 		return false;
 	}
-	var url = "user/myCart.php";
-	var sbody = "deleteCart=" + BookId;
+	var url = "/user/mycart.php";
+	var sbody = "deleteCart=" + bookid;
 	var xmlHttp = getXMLHttpObject();
 	xmlHttp.onreadystatechange = function(){
 		if(xmlHttp.readyState == 4){
@@ -257,13 +257,13 @@ function deleteCart(BookId){
 	return false;
 }
 /*delete Favorite ...............*/
-function deleteFavorite(BookId){
+function deleteFavorite(bookid){
 		var TF = confirm('走过路过，千万别错过!');
 	if(TF==false){
 		return false;
 	}
-	var url = "user/myFavorite.php";
-	var sbody = "deleteFavorite=" + BookId;
+	var url = "/user/myfavorite.php";
+	var sbody = "deleteFavorite=" + bookid;
 	var xmlHttp = getXMLHttpObject();
 	xmlHttp.onreadystatechange = function(){
 		if(xmlHttp.readyState == 4){
@@ -280,16 +280,16 @@ function deleteFavorite(BookId){
 	return false;
 }
 /*add Order .......... */
-function addOrder(BookId,OrderCount,OrderAmount){
+function addOrder(bookid,ordercount,orderamount){
 	//Initilize the parameters ......
-	var BookId = BookId;
-	var OrderCount = OrderCount;
-	var OrderAmount = OrderAmount;
-	var OrderPayment = document.getElementsByName('OrderPayment')[0].value;
-	var OrderDelivery = document.getElementsByName('OrderDelivery')[0].value;
-	var url = "user/myOrder.php";
-	var sbody = "addOrder="+BookId+"&OrderCount="+OrderCount+"&OrderAmount="+OrderAmount;
-		sbody += "&OrderPayment="+OrderPayment+"&OrderDelivery="+OrderDelivery;
+	var bookid = bookid;
+	var ordercount = ordercount;
+	var orderamount = orderamount;
+	var orderpayment = document.getElementsByName('orderpayment')[0].value;
+	var orderdelivery = document.getElementsByName('orderdelivery')[0].value;
+	var url = "/user/myorder.php";
+	var sbody = "addOrder="+bookid+"&ordercount="+ordercount+"&orderamount="+orderamount;
+		sbody += "&orderpayment="+orderpayment+"&orderdelivery="+orderdelivery;
 	var xmlHttp = getXMLHttpObject();
 	xmlHttp.onreadystatechange = function(){
 		if(xmlHttp.readyState == 4){
@@ -305,49 +305,49 @@ function addOrder(BookId,OrderCount,OrderAmount){
 	xmlHttp.send(sbody);
 }
 </script>
-<!-- StyleSheet -->
+<!-- styleSheet -->
 
-<!-- document.UserInforContent.start -->
+<!-- document.userInforContent.start -->
 <div id="content">
 <!-- FunctionList.start -->
 <div class="functionlist">
 <!-- PersonalDetails.start -->
 <div onmousedown="fold('userinfor')" class="list-title">
-<h1><img src="image/spacer.gif" alt="personaldetails" />我的资料</h1></div>
+<h1><img src="/image/spacer.gif" alt="personaldetails" />我的资料</h1></div>
 <div id="userinfor" class="list-content">
 <ul>
-	<a href="" onclick="return userInfo('myInfo','myInfo');" ><li>޸个人资料</li></a>
-	<a href="" onclick="return userInfo('myInfo','Password');" ><li>޸修改密码</li></a>
+	<a href="" onclick="return userInfo('myinfo','myInfo');" ><li>޸个人资料</li></a>
+	<a href="" onclick="return userInfo('myinfo','Password');" ><li>޸修改密码</li></a>
 	<a href="" onclick="return logout();" ><li>޸安全退出</li></a></ul></div><!-- PersonalDetails.stop -->
-<!-- UserCart.start -->
+<!-- userCart.start -->
 <div onmousedown="fold('cart')" class="list-title">
-<h1><img src="image/spacer.gif" alt="personaldetails" />我的购物车</h1></div>
+<h1><img src="/image/spacer.gif" alt="personaldetails" />我的购物车</h1></div>
 <div id="cart" class="list-content">
 <ul>
-	<a href="" onclick="return userInfo('myCart','Cart')" ><li>޸我的小推车</li></a>
-	<a href="" onclick="return userInfo('myCart','Bill')" ><li>޸我的账单</li></a>
+	<a href="" onclick="return userInfo('mycart','Cart')" ><li>޸我的小推车</li></a>
+	<a href="" onclick="return userInfo('mycart','Bill')" ><li>޸我的账单</li></a>
 	<a href="" onclick="alert('功能不详!');return false;" ><li>޸购物指南</li></a>
-</ul></div><!--UserCart.stop -->
-<!-- UserFavorites.start -->
+</ul></div><!--userCart.stop -->
+<!-- userFavorites.start -->
 <div onmousedown="fold('favorite')" class="list-title">
-<h1><img src="image/spacer.gif" alt="personaldetails" />我的收藏</h1></div>
+<h1><img src="/image/spacer.gif" alt="personaldetails" />我的收藏</h1></div>
 <div id="favorite" class="list-content">
 <ul>
-	<a href="" onclick="return userInfo('myFavorite','Favorite')"><li>޸我的收藏</li></a>
+	<a href="" onclick="return userInfo('myfavorite','Favorite')"><li>޸我的收藏</li></a>
 	<a href="" onclick="alert('功能不详!');return false;"><li>޸收藏指南</li></a>
-</ul></div><!-- UserFavorites.sttop -->
-<!-- UserOrder.start -->
+</ul></div><!-- userFavorites.sttop -->
+<!-- userOrder.start -->
 <div onmousedown="fold('order')" class="list-title">
-<h1><img src="image/spacer.gif" alt="personaldetails" />我的订单</h1></div>
+<h1><img src="/image/spacer.gif" alt="personaldetails" />我的订单</h1></div>
 <div id="order" class="list-content">
 <ul>
-	<a href="" onclick="return userInfo('myOrder','Order')"><li>我的订单</li></a>
-	<a href="" onclick="return userInfo('myCart','Cart')"><li>޸我的小推车</li></a>
-	<a href="" onclick="return userInfo('myFavorite','Favorite')"><li>޸我的收藏</li></a>
-</ul></div><!-- UserOrder.stop -->
+	<a href="" onclick="return userInfo('myorder','Order')"><li>我的订单</li></a>
+	<a href="" onclick="return userInfo('mycart','Cart')"><li>޸我的小推车</li></a>
+	<a href="" onclick="return userInfo('myfavorite','Favorite')"><li>޸我的收藏</li></a>
+</ul></div><!-- userOrder.stop -->
 <!-- BookSearch.start -->
 <div onmousedown="fold('research')" class="list-title">
-<h1><img src="image/spacer.gif" alt="personaldetails" />快速检索</h1></div>
+<h1><img src="/image/spacer.gif" alt="personaldetails" />快速检索</h1></div>
 <div id="research" class="list-content">
 <label for="_id1">关键字</label>
 <input type="text" id="_id1">
@@ -360,40 +360,40 @@ function addOrder(BookId,OrderCount,OrderAmount){
 </select>
 <button type="button" onclick="alert('暂不开放此功能,敬请谅解!');">提交查询</button>
 </div><!-- BookSearch.sttop -->
-</div><!-- UserInfor--FunctionList.sttop -->
-<!-- UserInfor--RightContent.start -->
+</div><!-- userInfor--FunctionList.sttop -->
+<!-- userInfor--RightContent.start -->
 <div id="rightContent">
 <?php
 $flag = isset($_GET['flag']) ? strtolower($_GET['flag']) : null;
 $url  = null;
 switch ($flag) {
 case 'order':
-	$url  = "myOrder";
-	$flag = "Order";
+	$url  = "myorder";
+	$flag = "order";
 	break;
 case 'cart':
-	$url  = "myCart";
-	$flag = "Cart";
+	$url  = "mycart";
+	$flag = "cart";
 	break;
 case 'favorite':
-	$url = "myFavorite";
-	$flag = "Favorite";
+	$url = "myfavorite";
+	$flag = "favorite";
 	break;
 case 'myinfo':
-	$url  = "myInfo";
+	$url  = "myinfo";
 	$flag = "myInfo";
 	break;
 case 'password':
-	$url = "myInfo";
-	$flag = "Password";
+	$url = "myinfo";
+	$flag = "password";
 	break;
 default:
-	$url = "myInfo";
+	$url = "myinfo";
 	$flag = "myInfo";
 }
 echo "<script type=\"text/javascript\">";
 echo "userInfo('$url','$flag');";
 echo "</script>";
 ?>
-</div><!-- UserInfor.RightContent.stop -->
-<div class="clear"></div></div><!-- document.UserInforCotent.stop -->
+</div><!-- userInfor.RightContent.stop -->
+<div class="clear"></div></div><!-- document.userInforCotent.stop -->

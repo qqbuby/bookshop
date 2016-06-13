@@ -12,7 +12,7 @@
 	width:100%;
 	height:16px;
 	cursor:pointer;
-	background-image:url(../image/list-title.gif);}
+	background-image:url(/image/list-title.gif);}
 .list-title h1 {
 	font-size:16px;
 	line-height:16px;}
@@ -22,7 +22,7 @@
 .list-content ul li {
 	margin-top:1px;
 	padding-left:10px;
-	background-image:url(../image/line.gif);}
+	background-image:url(/image/line.gif);}
 /*....................................*/
 .list-content label {
 	float:left;

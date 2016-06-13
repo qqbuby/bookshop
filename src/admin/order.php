@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('../script/php/validateUser.php');
+require('../script/php/validateuser.php');
 require('../model/conn.php');
 
 /* order Information              					*/
@@ -8,7 +8,7 @@ require('../model/conn.php');
 function showOrder($con) {
 	/*	Initilize parameters      		*/
 	$sql	    = " SELECT * FROM orderInfo";
-	$sql       .= " ORDER BY OrderStatus,OrderDate";
+	$sql       .= " ORDER BY orderstatus,orderdate";
 				/*....................................*/
 	$pagesize   = 10;                                                /*每页显示的记录数                   */
 	$totalRows  = mysql_num_rows(mysql_query($sql,$con));           /*记录总数                          */
@@ -43,18 +43,18 @@ function showOrder($con) {
 	/*	table body                       */
 	while ($rowOr = mysql_fetch_array($result)) {
 		echo "<tr>";
-		echo "<td>".$rowOr['OrderId']."</td>";
-		echo "<td>".$rowOr['MbId']."</td>";
-		echo "<td>".$rowOr['BookId']."</td>";
-		echo "<td>".$rowOr['OrderCount']."</td>";
-		echo "<td>".$rowOr['OrderAmount']."</td>";
-		echo "<td>".$rowOr['OrderPayment']."</td>";
-		echo "<td>".$rowOr['OrderDelivery']."</td>";
-		echo "<td>".$rowOr['OrderDate']."</td>";
-		echo "<td>".$rowOr['OrderArrival']."</td>";
-		echo "<td>".$rowOr['UserId']."</td>";
+		echo "<td>".$rowOr['orderid']."</td>";
+		echo "<td>".$rowOr['mbid']."</td>";
+		echo "<td>".$rowOr['bookid']."</td>";
+		echo "<td>".$rowOr['ordercount']."</td>";
+		echo "<td>".$rowOr['orderamount']."</td>";
+		echo "<td>".$rowOr['orderpayment']."</td>";
+		echo "<td>".$rowOr['orderdelivery']."</td>";
+		echo "<td>".$rowOr['orderdate']."</td>";
+		echo "<td>".$rowOr['orderarrival']."</td>";
+		echo "<td>".$rowOr['userid']."</td>";
 		/* show Order Status         */
-			switch($rowOr['OrderStatus']){
+			switch($rowOr['orderstatus']){
 				case 0:
 					echo "<td class=\"status0\">正在处理...</td>";
 					break;
@@ -67,11 +67,11 @@ function showOrder($con) {
 			}
 		/*-----------            */
 		echo "<td>";
-			if ($rowOr['OrderStatus'] == 0) {
-				echo "<button type=\"button\" onclick=\"return disposeOrder('".$rowOr['OrderId']."');\">";
+			if ($rowOr['orderstatus'] == 0) {
+				echo "<button type=\"button\" onclick=\"return disposeOrder('".$rowOr['orderid']."');\">";
 		  		echo "处理</button>";
-			} elseif ($rowOr['OrderStatus'] == 1) {
-				echo "<button type=\"button\" onclick=\"return abolishOrder('".$rowOr['OrderId']."');\">";
+			} elseif ($rowOr['orderstatus'] == 1) {
+				echo "<button type=\"button\" onclick=\"return abolishOrder('".$rowOr['orderid']."');\">";
 		  		echo "废除</button>";
 			} else {
 				echo "<button type=\"button\" >已废除</button>";
@@ -133,14 +133,14 @@ if (isset($_GET['Order'])) {
 }
 /*dispose order					*/
 if (isset($_POST['disposeOrder'])) {
-	$OrderId      = $_POST['disposeOrder'];
-	$UserId       = $_SESSION['adminId']; 
-	$OrderArrival = date('Y-m-d');
-	$OrderStatus  = '1';
+	$orderid      = $_POST['disposeOrder'];
+	$userid       = $_SESSION['adminId']; 
+	$orderarrival = date('Y-m-d');
+	$orderstatus  = '1';
 	
 	$sql  = " UPDATE OrderInfo";
-	$sql .= " SET UserId = '$UserId',OrderStatus = '$OrderStatus',OrderArrival='$OrderArrival'";
-	$sql .= " WHERE OrderId = '$OrderId'";
+	$sql .= " SET userid = '$userid',orderstatus = '$orderstatus',orderarrival='$orderarrival'";
+	$sql .= " WHERE orderid = '$orderid'";
 	
 	$result = mysql_query($sql,$con);
 	if ($result) {
@@ -152,14 +152,14 @@ if (isset($_POST['disposeOrder'])) {
 }
 /*abolish order					*/
 if (isset($_POST['abolishOrder'])) {
-	$OrderId      = $_POST['abolishOrder'];
-	$UserId       = $_SESSION['adminId']; 
-	$OrderArrival = date('Y-m-d');
-	$OrderStatus  = '2';
+	$orderid      = $_POST['abolishOrder'];
+	$userid       = $_SESSION['adminId']; 
+	$orderarrival = date('Y-m-d');
+	$orderstatus  = '2';
 	
 	$sql  = " UPDATE OrderInfo";
-	$sql .= " SET UserId = '$UserId',OrderStatus = '$OrderStatus',OrderArrival='$OrderArrival'";
-	$sql .= " WHERE OrderId = '$OrderId'";
+	$sql .= " SET userid = '$userid',orderstatus = '$orderstatus',orderarrival='$orderarrival'";
+	$sql .= " WHERE orderid = '$orderid'";
 	
 	$result = mysql_query($sql,$con);
 	if ($result) {

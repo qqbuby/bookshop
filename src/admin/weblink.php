@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('../script/php/validateUser.php');
+require('../script/php/validateuser.php');
 require('../model/conn.php');
 
 /* insert input form model ...........        */
@@ -12,7 +12,7 @@ function getInput($value,$id) {
 function showWebLink($con) {
 	/*	Initilize parameters      		*/
 	$sql	    = " SELECT * FROM webLink";
-	$sql       .= " ORDER BY LinkLabel";
+	$sql       .= " ORDER BY linklabel";
 				/*....................................*/
 	$pagesize   = 10;                                                /*每页显示的记录数                   */
 	$totalRows  = mysql_num_rows(mysql_query($sql,$con));           /*记录总数                          */
@@ -41,20 +41,20 @@ function showWebLink($con) {
 	/*	table body                       */
 	while ($rowWL = mysql_fetch_array($result)) {
 		echo "<tr>";
-		echo "<td>".$rowWL['LinkId']."</td>";
+		echo "<td>".$rowWL['linkid']."</td>";
 		echo "<td>";
-			getinput($rowWL['LinkName'],$rowWL['LinkId']);
+			getinput($rowWL['linkname'],$rowWL['linkid']);
 		echo "</td>";
 		echo "<td>";
-			getinput($rowWL['LinkUrl'],$rowWL['LinkId']);
+			getinput($rowWL['linkurl'],$rowWL['linkid']);
 		echo "</td>";
 		echo "<td>";
-			getinput($rowWL['LinkImage'],$rowWL['LinkId']);
+			getinput($rowWL['linkimage'],$rowWL['linkid']);
 		echo "</td>";		
 		echo "<td>";
-			echo "<select name=\"__ID".$rowWL['LinkId']."\">";
-			echo "<option value=\"".$rowWL['LinkLabel']."\">";
-			switch ($rowWL['LinkLabel']){
+			echo "<select name=\"__ID".$rowWL['linkid']."\">";
+			echo "<option value=\"".$rowWL['linklabel']."\">";
+			switch ($rowWL['linklabel']){
 			case 0:
 				echo "内链接";
 				break;
@@ -69,8 +69,8 @@ function showWebLink($con) {
 			echo "</select>";
 		echo "</td>";
 		echo "<td>";
-		  echo "<button type=\"button\" onclick=\"return updateWL('".$rowWL['LinkId']."');\">更新</button>";
-		  echo "<button type=\"button\" onclick=\"return deleteWL('".$rowWL['LinkId']."');\">删除</button>";
+		  echo "<button type=\"button\" onclick=\"return updateWL('".$rowWL['linkid']."');\">更新</button>";
+		  echo "<button type=\"button\" onclick=\"return deleteWL('".$rowWL['linkid']."');\">删除</button>";
 		echo "</td>";
 		echo "</tr>";
 	}
@@ -78,11 +78,11 @@ function showWebLink($con) {
 	echo
 	   "<tr>
 			<td id=\"WLtips\"></td>
-			<td><input type=\"text\" name=\"LinkName\" size=\"12\" /></td>
-			<td><input type=\"text\" name=\"LinkUrl\" size=\"12\" /></td>
-			<td><input type=\"text\" name=\"LinkImage\" size=\"12\" /></td>
+			<td><input type=\"text\" name=\"linkname\" size=\"12\" /></td>
+			<td><input type=\"text\" name=\"linkurl\" size=\"12\" /></td>
+			<td><input type=\"text\" name=\"linkimage\" size=\"12\" /></td>
 			<td>
-				<select name=\"LinkLabel\">
+				<select name=\"linklabel\">
 					<option value=\"0\">内链接</option>
 					<option value=\"1\">外链接</option>
 				</select>
@@ -140,22 +140,22 @@ if (isset($_GET['Weblink'])) {
 }
 /* add webLink .	.					*/
 if (isset($_POST['addWL'])) {
-	$LinkName  = $_POST['addWL'];
-	$LinkLabel = $_POST['LinkLabel'];
-	$LinkUrl   = $_POST['LinkUrl'];
+	$linkname  = $_POST['addWL'];
+	$linklabel = $_POST['linklabel'];
+	$linkurl   = $_POST['linkurl'];
 	
-	$path      = $_POST['LinkImage'];
+	$path      = $_POST['linkimage'];
 	$pathinfo  = pathinfo($path);
 	$extension = strtolower($pathinfo['extension']);
 	if ($extension != 'gif') {
 		exit('0');
 	}
-	$LinkImage = "image/webLinkImage/".$pathinfo['basename'];
-	$AddPerson = $_SESSION['adminId'];
+	$linkimage = "image/weblinkimage/".$pathinfo['basename'];
+	$addperson = $_SESSION['adminId'];
 	
 	/*validate the data uniqueness ...		*/
 	$sql  = " SELECT * FROM webLink";
-	$sql .= " WHERE LinkName = '$LinkName'";
+	$sql .= " WHERE linkname = '$linkname'";
 	
 	$result = mysql_query($sql,$con);
 	$num 	= mysql_num_rows($result);
@@ -164,9 +164,9 @@ if (isset($_POST['addWL'])) {
 	}
 	/*add webLink start				*/
 	$sql  = " INSERT INTO webLink";
-	$sql .= " (LinkName,LinkUrl,LinkImage,LinkLabel,AddPerson)";
+	$sql .= " (linkname,linkurl,linkimage,linklabel,addperson)";
 	$sql .= " VALUES";
-	$sql .= " ('$LinkName','$LinkUrl','$LinkImage','$LinkLabel','$AddPerson')";
+	$sql .= " ('$linkname','$linkurl','$linkimage','$linklabel','$addperson')";
 	$result = mysql_query($sql,$con);
 	if ($result) {
 		showWebLink($con);
@@ -177,23 +177,23 @@ if (isset($_POST['addWL'])) {
 }
 /*update webLink						*/
 if (isset($_POST['updateWL'])) {
-	$LinkId	   = $_POST['updateWL'];
-	$LinkName  = $_POST['LinkName'];
-	$LinkLabel = $_POST['LinkLabel'];
-	$LinkUrl   = $_POST['LinkUrl'];
+	$linkid	   = $_POST['updateWL'];
+	$linkname  = $_POST['linkname'];
+	$linklabel = $_POST['linklabel'];
+	$linkurl   = $_POST['linkurl'];
 	
-	$path      = $_POST['LinkImage'];
+	$path      = $_POST['linkimage'];
 	$pathinfo  = pathinfo($path);
 	$extension = strtolower($pathinfo['extension']);
 	if ($extension != 'gif') {
 		exit('0');
 	}
-	$LinkImage = "image/webLinkImage/".$pathinfo['basename'];
-	$AddPerson = $_SESSION['adminId'];
+	$linkimage = "image/weblinkimage/".$pathinfo['basename'];
+	$addperson = $_SESSION['adminId'];
 	
 	/*validate the data uniqueness ...		
 	$sql  = " SELECT * FROM webLink";
-	$sql .= " WHERE LinkName = '$LinkName'";
+	$sql .= " WHERE linkname = '$linkname'";
 	
 	$result = mysql_query($sql,$con);
 	$num 	= mysql_num_rows($result);
@@ -202,9 +202,9 @@ if (isset($_POST['updateWL'])) {
 	}*/
 	
 	$sql  = " UPDATE webLink ";
-	$sql .= " SET LinkName = '$LinkName',LinkUrl= '$LinkUrl',";
-	$sql .= " LinkImage = '$LinkImage',LinkLabel = '$LinkLabel',AddPerson='$AddPerson";
-	$sql .= " WHERE LinkId = '$LinkId'";
+	$sql .= " SET linkname = '$linkname',linkurl= '$linkurl',";
+	$sql .= " linkimage = '$linkimage',linklabel = '$linklabel',addperson='$addperson";
+	$sql .= " WHERE linkid = '$linkid'";
 
 	$result = mysql_query($sql,$con);
 	if ($result) {
@@ -216,9 +216,9 @@ if (isset($_POST['updateWL'])) {
 }
 /*delete webLink						*/
 if (isset($_POST['deleteWL'])) {
-	$LinkId = $_POST['deleteWL'];
+	$linkid = $_POST['deleteWL'];
 	$sql	   = " DELETE FROM webLink";
-	$sql	  .= " WHERE LinkId = '$LinkId'";
+	$sql	  .= " WHERE linkid = '$linkid'";
 	
 	$result = mysql_query($sql,$con);
 	if ($result) {

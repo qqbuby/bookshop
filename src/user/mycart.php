@@ -1,7 +1,7 @@
 ﻿<?php
 /*----<!-- myCart.start -->--------*/
 session_start();
-include_once("../script/php/validateMember.php");
+include_once("../script/php/validatemember.php");
 ?>
 <?php
 /*----display the Cart Table data -----*/
@@ -53,7 +53,7 @@ function showCart($cart) {
 	echo "<tr>";
 	echo "<td>付款方式</td>";
 	echo "<td>";
-		echo "<select name=\"OrderPayment\">
+		echo "<select name=\"orderpayment\">
 				<option value=\"大学\">大学</option>
 				<option value=\"中学\">高中</option>
 				<option value=\"初中\">初中</option
@@ -61,7 +61,7 @@ function showCart($cart) {
 	echo "</td>";
 	echo "<td>送货方式</td>";
 	echo "<td>";
-		echo "<select name=\"OrderDelivery\">
+		echo "<select name=\"orderdelivery\">
 				<option value=\"大学\">大学</option>
 				<option value=\"高中\">高中</option>
 				<option value=\"初中\">初中</option>
@@ -74,17 +74,17 @@ function showCart($cart) {
 
 /*--------add Cart-----------*/
 if(isset($_POST['addCart'])){
-	$BookId    = $_POST['addCart'];
-	$BookName  = $_POST['BookName'];
-	$BookPrice = $_POST['BookPrice'];
+	$bookid    = $_POST['addCart'];
+	$bookname  = $_POST['bookname'];
+	$bookprice = $_POST['bookprice'];
 	$BookCount = 1;
-	$Bookprice = $BookPrice*$BookCount;
-	$cart      = array($BookId,$BookName,$BookCount,$BookPrice,$Bookprice);
+	$Bookprice = $bookprice*$BookCount;
+	$cart      = array($bookid,$bookname,$BookCount,$bookprice,$Bookprice);
 	/*----verify Cart Uniqueness------*/
 	$cart_info = $_SESSION['cart'];
 	for($i=0;$i<count($cart_info);$i++){                     /*验证该图书是否已放进购物车             */
-		if($BookId == $cart_info[$i][0]){
-			exit("图书《".$BookName."》已经放进小推车!");       /*回传给用户提示信息,并停止脚步执行       */
+		if($bookid == $cart_info[$i][0]){
+			exit("图书《".$bookname."》已经放进小推车!");       /*回传给用户提示信息,并停止脚步执行       */
 		}
 	}
 	$_SESSION['cart'][] = $cart;                             /*购物车数组追加该信息                  */
@@ -92,11 +92,11 @@ if(isset($_POST['addCart'])){
 }
 /*-------update Cart-----------*/
 if(isset($_POST['updateCart'])){
-	$BookId = $_POST['updateCart'];
+	$bookid = $_POST['updateCart'];
 	$changeCount = $_POST['changeCount'];
 	$cart = $_SESSION['cart'];
 	for($i=0;$i<count($cart);$i++){                           /*获取购物车指定项，并更新相应项         */
-		if($BookId == $cart[$i][0]){
+		if($bookid == $cart[$i][0]){
 			$cart[$i][2] = $changeCount;
 			$cart[$i][4] = $cart[$i][3]*$changeCount;
 		}
@@ -106,10 +106,10 @@ if(isset($_POST['updateCart'])){
 }
 /*--------delete Cart-------------*/
 if(isset($_POST['deleteCart'])){                             
-	$BookId = $_POST['deleteCart'];
+	$bookid = $_POST['deleteCart'];
 	$cart_info = $_SESSION['cart'];
 	for($i=0;$i<count($cart_info);$i++){	 		         /*获取购物车指定项，并删除相应项           */
-		if($BookId != $cart_info[$i][0]){
+		if($bookid != $cart_info[$i][0]){
 			$cart[] = $cart_info[$i];
 		}
 	}

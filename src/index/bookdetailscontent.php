@@ -4,13 +4,13 @@
 function addComment() {
 	var commentTitle   = document.getElementById('commentTitle').value;
 	var commentContent = document.getElementById('commentContent').value;
-	var BookId         = document.getElementsByName('BookId')[0].value;
+	var bookid         = document.getElementsByName('bookid')[0].value;
 	if (commentContent=='') {
 		alert('评论内容为空！');
 		return false;
 	}
 	var url     = "bookdetails.php";
-	var sbody   = "commentTitle=" + commentTitle + "&commentContent=" + commentContent + "&BookId=" + BookId;
+	var sbody   = "commentTitle=" + commentTitle + "&commentContent=" + commentContent + "&bookid=" + bookid;
 	var xmlHttp = getXMLHttpObject();
 	xmlHttp.onreadystatechange = function() {
 		if (xmlHttp.readyState == 4) {
@@ -36,7 +36,7 @@ function addComment() {
 	return false;
 }
 /*book-catalog  ----  book-content 		*/
-function displayBookComment(id){
+function displaybookcomment(id){
 	if (id=="bookcontent") {
 		document.getElementById("bookcontent").style.backgroundColor="#38b830";
 		document.getElementById("bookcontent").style.color="#f8fcf0";
@@ -66,76 +66,76 @@ function displayBookComment(id){
 <!-- leftClassNav.start -->
 <div id="leftClassNav" class="aside">
 <?php
-include_once("LeftAside.php");
+include_once("leftaside.php");
 ?>
 </div><!-- leftClassNav.stop  -->
 <!-- bookDetailsContent.start  -->
 <div class="bookcontent" class="bookDetailscontent">
 <?php
-if(isset($_GET['BookId'])){
-	$BookId = $_GET['BookId'];
-	echo "<input type=\"hidden\" value=\"$BookId\" name=\"BookId\" />";
-	showBookDetails($BookId,$con);
+if(isset($_GET['bookid'])){
+	$bookid = $_GET['bookid'];
+	echo "<input type=\"hidden\" value=\"$bookid\" name=\"bookid\" />";
+	showBookDetails($bookid,$con);
 }else {
 	echo "ERROR...";
 }
-function showBookDetails($BookId,$conn) {
+function showBookDetails($bookid,$conn) {
 	$sql = "UPDATE BookInfo ";
-	$sql .= "SET BookViewCount=BookViewCount+1";
-	$sql .= " WHERE BookId='$BookId'";
+	$sql .= "SET bookviewcount=bookviewcount+1";
+	$sql .= " WHERE bookid='$bookid'";
 	mysql_query($sql) or die('Error');
 	$sql = "SELECT * FROM BookInfo ";
-	$sql .= "WHERE BookId='".$BookId."'";
+	$sql .= "WHERE bookid='".$bookid."'";
 	$resultS = mysql_query($sql,$conn) or exit(mysql_error());
 	$rowS = mysql_fetch_array($resultS);
 	echo "<div class=\"book-details\">";                  /*book-details-start               */
 	echo "<div class=\"booklist\">";
-	echo "<label>".$rowS['BookName']."</label>";
+	echo "<label>".$rowS['bookname']."</label>";
 	echo "<table>";
 	echo "<tr>";
-	echo "<td colspan=\"2\"><img src=\"".$rowS['BookImage']."\" /></td></tr>";
+	echo "<td colspan=\"2\"><img src=\"".$rowS['bookimage']."\" /></td></tr>";
 	echo "<tr>";
-	echo "<td>定&nbsp;&nbsp;&nbsp;&nbsp;价:</td><td>".$rowS['BookPrice']."</td></tr>";
+	echo "<td>定&nbsp;&nbsp;&nbsp;&nbsp;价:</td><td>".$rowS['bookprice']."</td></tr>";
 	echo "<tr>";
-	echo "<td>会员价:</td><td>".($rowS['BookPrice']*7.5)."</td></tr>";
+	echo "<td>会员价:</td><td>".($rowS['bookprice']*7.5)."</td></tr>";
 	echo "<tr>";
 	echo "<td>";
-		echo payUrl($rowS['BookId'],$rowS['BookName'],$rowS['BookPrice']);
+		echo payUrl($rowS['bookid'],$rowS['bookname'],$rowS['bookprice']);
 	echo "</td>";
 	echo "<td>";
-		echo favoriteUrl($rowS['BookId']);
+		echo favoriteUrl($rowS['bookid']);
 	echo "</td>";
 	echo "</tr>";
 	echo "</table>";
 	echo "</div>";
 	echo "<div class=\"bookdetails\">";
-	echo "<label><strong>作　　者：</strong>".$rowS['BookAuthor']."</label>";
-	echo "<label><strong>出 版 社：</strong>".$rowS['BookPress']."</label>";
-	echo "<label><strong>出版时间：</strong>".$rowS['BookPublishDate']."</label>";
-	echo "<label><strong>版　　次：</strong>第".$rowS['BookPublishTimes']."版</label>";
-	echo "<label><strong>页　　数：</strong>".$rowS['BookPageCount']."</label>";
+	echo "<label><strong>作　　者：</strong>".$rowS['bookauthor']."</label>";
+	echo "<label><strong>出 版 社：</strong>".$rowS['bookpress']."</label>";
+	echo "<label><strong>出版时间：</strong>".$rowS['bookpublishdate']."</label>";
+	echo "<label><strong>版　　次：</strong>第".$rowS['bookpublishtimes']."版</label>";
+	echo "<label><strong>页　　数：</strong>".$rowS['bookpagecount']."</label>";
 	echo "<label><strong>印刷时间：<strong>".$rowS['BookPrintDate']."</label>";
-	echo "<label><strong>开　　本：</strong>".$rowS['BookPageSize']."</label>";
-	echo "<label>I S B N ：".$rowS['BookISBN']."</label>";
+	echo "<label><strong>开　　本：</strong>".$rowS['bookpagesize']."</label>";
+	echo "<label>I S B N ：".$rowS['bookisbn']."</label>";
 	echo "<label><strong>星　　级：</strong><img src=\"image/5star.gif\" /></label>";
 	echo "</div>";  	                                       /*bookdetails.stop        */
 	echo "</div>";		                                       /*book-details.stop       */
 	echo "<div class=\"book-catalog-content\">";               /*book-catalog-content-start        */
 	echo "<ul>";
 	echo "<li id=\"bookcatalog\" style=\"cursor:pointer; background: #38B830; color: #f8fcf0;\"";
-		echo " onclick=\"displayBookComment('bookcatalog');\">图书目录</li>";
+		echo " onclick=\"displaybookcomment('bookcatalog');\">图书目录</li>";
 	echo "<li id=\"bookcontent\" style=\"cursor:pointer;\"";
-		echo " onclick=\"displayBookComment('bookcontent');\">内容简介</li>";
+		echo " onclick=\"displaybookcomment('bookcontent');\">内容简介</li>";
 	echo "<div class=\"clear\"></div></ul>";
 	echo "<div id=\"book-catalog\" class=\"book-catalog\">";	/*book-catalog-start    */
-	echo "<textarea readonly=\"readonly\">".$rowS['BookCatalog']."</textarea>";
+	echo "<textarea readonly=\"readonly\">".$rowS['bookcatalog']."</textarea>";
 	echo "</div>";		//book-catalog-stop
 	echo "<div id=\"book-content\" class=\"book-content\">";
-	echo "<textarea readonly=\"readonly\">".$rowS['BookIntroduction']."</textarea>";
+	echo "<textarea readonly=\"readonly\">".$rowS['bookintroduction']."</textarea>";
 	echo "</div>";		//book-content-stop
 	echo "</div>";      //book-catalog-content-stop
 	echo "<div id=\"book-comment\" class=\"book-comment\">";	/*book-comment-start      */
-		showBookComment($BookId,$conn);                         /*方法实现见于BookDetails.php     */
+		showbookcomment($bookid,$conn);                         /*方法实现见于bookdetails.php     */
 	echo "</div>";	                                            /*book-comment-stop      */
 }
 ?>
@@ -156,8 +156,8 @@ function showBookDetails($BookId,$conn) {
 <ul>
 	<li>
 	<?php
-		if(isset($_SESSION['MbId'])){
-			echo "您好:".$_SESSION['MbName'];
+		if(isset($_SESSION['mbid'])){
+			echo "您好:".$_SESSION['mbname'];
 		}
 		else {
 			echo "游客:&nbsp;<a href=\"#\" onclick=\"return loginAndReg('login');\">登录</a>|</li>
@@ -170,7 +170,7 @@ function showBookDetails($BookId,$conn) {
 <!-- rangelist.start  -->
 <div class="ranglist">
 <?php
-include_once("RangeList.php");    /*右侧分类列表    --*/
+include_once("rangelist.php");    /*右侧分类列表    --*/
 ?>
 </div><!-- ranglist.stop  -->
 <div class="clear"></div></div><!-- content.stop  -->

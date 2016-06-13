@@ -1,7 +1,7 @@
-<!-- JavaScript -->
-<script type="text/javascript" language="javascript" src="Script/getXMLHttpObject.js"></script>
-<script type="text/javascript" language="javascript" src="Script/fold.js"></script>
-<script type="text/javascript" language="javascript" src="Script/page.js"></script>
+<!-- Javascript -->
+<script type="text/javascript" language="javascript" src="/script/getxmlhttpobject.js"></script>
+<script type="text/javascript" language="javascript" src="/script/fold.js"></script>
+<script type="text/javascript" language="javascript" src="/script/page.js"></script>
 <script type="text/javascript" language="javascript">
 /* document.getElementsByName.. */
 function getValue(name,num){
@@ -10,7 +10,7 @@ function getValue(name,num){
 /* adminInfo					*/
 function adminInfo(page,msg) {
 	var xmlHttp = getXMLHttpObject();
-	var url 	= "Admin/" + page + ".php?" + msg + "&" + Math.random();
+	var url 	= "admin/" + page + ".php?" + msg + "&" + Math.random();
 	xmlHttp.onreadystatechange = function () {
 		if(xmlHttp.readyState == 4){
 			if(xmlHttp.status == 200){
@@ -142,16 +142,16 @@ function changePassword(){
 	xmlHttp.send(sbody);
 }
 /*add user ..					*/
-function addUser(){
-	var UserName 	 = document.getElementsByName('UserName')[0].value;
-	var UserPassword = document.getElementsByName('UserPassword')[0].value;
-	var UserRole     = document.getElementsByName('UserRole')[0].value;
-	if(UserName == '' || UserPassword == ''){
+function adduser(){
+	var username 	 = document.getElementsByName('username')[0].value;
+	var userpassword = document.getElementsByName('userpassword')[0].value;
+	var userrole     = document.getElementsByName('userrole')[0].value;
+	if(username == '' || userpassword == ''){
 		document.getElementById('addTips').innerHTML = '用户名或密码为空';
 		return false;
 	} /* End If 	*/
 	var url     = "admin/userinfo.php";
-	var sbody   = "addUser=" + UserName + "&UserPassword=" + UserPassword +"&UserRole=" + UserRole;
+	var sbody   = "adduser=" + username + "&userpassword=" + userpassword +"&userrole=" + userrole;
 	var xmlHttp = getXMLHttpObject();
 	xmlHttp.onreadystatechange = function(){
 			if(xmlHttp.readyState == 4){
@@ -172,19 +172,19 @@ function addUser(){
 	xmlHttp.send(sbody);
 	return false;
 }
-/*update User..					*/
-function updateUser(UserId){
+/*update user..					*/
+function updateuser(userid){
 	var TF = confirm('请三思!');
 	if(TF==false){
 		return false;
 	}
-	var formName 	 = 'id' + UserId;
-	var UserName 	 = document.getElementsByName(formName)[0].value;
-	var UserPassword = document.getElementsByName(formName)[1].value;
-	var UserRole 	 = document.getElementsByName(formName)[2].value;
+	var formName 	 = 'id' + userid;
+	var username 	 = document.getElementsByName(formName)[0].value;
+	var userpassword = document.getElementsByName(formName)[1].value;
+	var userrole 	 = document.getElementsByName(formName)[2].value;
 	var url 		 = "admin/userInfo.php";
-	var sbody 		 = "updateUser=" + UserId + "&UserName=" + UserName;
-	    sbody 		+= "&UserPassword=" + UserPassword + "&UserRole=" + UserRole;
+	var sbody 		 = "updateuser=" + userid + "&username=" + username;
+	    sbody 		+= "&userpassword=" + userpassword + "&userrole=" + userrole;
 	var xmlHttp  	 = getXMLHttpObject();
 	xmlHttp.onreadystatechange = function(){
 		if(xmlHttp.readyState == 4){
@@ -201,14 +201,14 @@ function updateUser(UserId){
 	xmlHttp.send(sbody);
 	return false;
 }
-/*delete User .............		*/
-function deleteUser(UserId){
+/*delete user .............		*/
+function deleteuser(userid){
 	var TF = confirm('请三思!');
 	if(TF==false){
 		return false;
 	}
 	var url   	= "admin/userinfo.php";
-	var sbody   = "deleteUser=" + UserId;
+	var sbody   = "deleteuser=" + userid;
 	var xmlHttp = getXMLHttpObject();
 	xmlHttp.onreadystatechange = function(){
 		if(xmlHttp.readyState == 4){
@@ -227,15 +227,15 @@ function deleteUser(UserId){
 
 /*add BMClass ..				*/
 function addMC() {
-	var BMClassName  = getValue('BMClassName',0);
-	var BMClassLabel = getValue('BMClassLabel',0);
+	var bmclassname  = getValue('bmclassname',0);
+	var bmclasslabel = getValue('bmclasslabel',0);
 	/*verify the data efficiency     */
-	if (BMClassName == '' || BMClassLabel == '') {
+	if (bmclassname == '' || bmclasslabel == '') {
 		document.getElementById('MCtips').innerHTML = '分类名为空';
 		return false;
 	}
-	var url 	= "admin/BMClass.php";	
-	var sbody   = "addMC=" + BMClassName +"&BMClassLabel=" + BMClassLabel;
+	var url 	= "admin/bmclass.php";	
+	var sbody   = "addMC=" + bmclassname +"&bmclasslabel=" + bmclasslabel;
 	var xmlHttp = getXMLHttpObject();
 	xmlHttp.onreadystatechange = function() {
 		if (xmlHttp.readyState == 4) { 
@@ -263,12 +263,12 @@ function updateMC(id) {
 	}
 	var name         = "__ID" + id;
 	
-	var BMClassId    = id;
-	var BMClassName  = getValue(name,0);
-	var BMClassLabel = getValue(name,1);
+	var bmclassid    = id;
+	var bmclassname  = getValue(name,0);
+	var bmclasslabel = getValue(name,1);
 	
-	var url     = "admin/BMClass.php";
-	var sbody   = "updateMC=" + BMClassId + "&BMClassName=" + BMClassName + "&BMClassLabel=" + BMClassLabel;
+	var url     = "admin/bmclass.php";
+	var sbody   = "updateMC=" + bmclassid + "&bmclassname=" + bmclassname + "&bmclasslabel=" + bmclasslabel;
 	var xmlHttp = getXMLHttpObject();
 	
 	xmlHttp.onreadystatechange = function() {
@@ -293,9 +293,9 @@ function deleteMC(id) {
 		return false;
 	}
 	
-	var BMClassId = id;
-	var url       = "admin/BMClass.php";
-	var sbody     = "deleteMC=" + BMClassId;
+	var bmclassid = id;
+	var url       = "admin/bmclass.php";
+	var sbody     = "deleteMC=" + bmclassid;
 	var xmlHttp   = getXMLHttpObject();
 	
 	xmlHttp.onreadystatechange = function() {
@@ -314,16 +314,16 @@ function deleteMC(id) {
 
 /*add BCClass ..				*/
 function addCC() {
-	var BCClassName  = getValue('BCClassName',0);
-	var BCClassLabel = getValue('BCClassLabel',0);
-	var BMClassId	 = getValue('BMClassId',0);
+	var bcclassname  = getValue('bcclassname',0);
+	var bcclasslabel = getValue('bcclasslabel',0);
+	var bmclassid	 = getValue('bmclassid',0);
 	/*verify the data efficiency     */
-	if (BCClassName == '') {
+	if (bcclassname == '') {
 		document.getElementById('CCtips').innerHTML = '分类名为空';
 		return false;
 	}
-	var url 	= "admin/BCClass.php";	
-	var sbody   = "addCC=" + BCClassName +"&BCClassLabel=" + BCClassLabel + "&BMClassId=" + BMClassId;
+	var url 	= "admin/bcclass.php";	
+	var sbody   = "addCC=" + bcclassname +"&bcclasslabel=" + bcclasslabel + "&bmclassid=" + bmclassid;
 	var xmlHttp = getXMLHttpObject();
 	xmlHttp.onreadystatechange = function() {
 		if (xmlHttp.readyState == 4) { 
@@ -351,14 +351,14 @@ function updateCC(id) {
 	}
 	var name         = "__ID" + id;
 	
-	var BCClassId    = id;
-	var BCClassName  = getValue(name,0);
-	var BCClassLabel = getValue(name,1);
-	var BMClassId	 = getValue(name,2);
+	var bcclassid    = id;
+	var bcclassname  = getValue(name,0);
+	var bcclasslabel = getValue(name,1);
+	var bmclassid	 = getValue(name,2);
 	
-	var url     = "admin/BCClass.php";
-	var sbody   = "updateCC=" + BCClassId + "&BCClassName=" + BCClassName 
-				+ "&BCClassLabel=" + BCClassLabel + "&BMClassId=" + BMClassId;
+	var url     = "admin/bcclass.php";
+	var sbody   = "updateCC=" + bcclassid + "&bcclassname=" + bcclassname 
+				+ "&bcclasslabel=" + bcclasslabel + "&bmclassid=" + bmclassid;
 	var xmlHttp = getXMLHttpObject();
 	//alert(sbody);return false;
 	xmlHttp.onreadystatechange = function() {
@@ -383,9 +383,9 @@ function deleteCC(id) {
 		return false;
 	}
 	
-	var BCClassId = id;
-	var url       = "admin/BCClass.php";
-	var sbody     = "deleteCC=" + BCClassId;
+	var bcclassid = id;
+	var url       = "admin/bcclass.php";
+	var sbody     = "deleteCC=" + bcclassid;
 	var xmlHttp   = getXMLHttpObject();
 	
 	xmlHttp.onreadystatechange = function() {
@@ -404,7 +404,7 @@ function deleteCC(id) {
 
 /*dispose Order ..		        */
 function disposeOrder(orderId) {
-	var url     = "admin/Order.php";
+	var url     = "admin/order.php";
 	var sbody   = "disposeOrder=" + orderId;
 	var xmlHttp = getXMLHttpObject();
 	//alert(sbody);return false;
@@ -428,7 +428,7 @@ function abolishOrder(orderId) {
 	if(TF==false){
 		return false;
 	}
-	var url     = "admin/Order.php";
+	var url     = "admin/order.php";
 	var sbody   = "abolishOrder=" + orderId;
 	var xmlHttp = getXMLHttpObject();
 	//alert(sbody);return false;
@@ -449,18 +449,18 @@ function abolishOrder(orderId) {
 
 /*add webLink ..				*/
 function addWL() {
-	var LinkName  = getValue('LinkName',0);
-	var LinkUrl   = getValue('LinkUrl',0);
-	var LinkImage = getValue('LinkImage',0);
-	var LinkLabel = getValue('LinkLabel',0);
+	var linkname  = getValue('linkname',0);
+	var linkurl   = getValue('linkurl',0);
+	var linkimage = getValue('linkimage',0);
+	var linklabel = getValue('linklabel',0);
 	/*verify the data efficiency     */
-	if (LinkName == '' || LinkUrl == '') {
+	if (linkname == '' || linkurl == '') {
 		document.getElementById('WLtips').innerHTML = '存在空值!';
 		return false;
 	}
-	var url 	= "admin/WebLink.php";	
-	var sbody   = "addWL=" + LinkName + "&LinkUrl=" + LinkUrl
-			      + "&LinkImage=" + LinkImage + "&LinkLabel=" + LinkLabel;
+	var url 	= "admin/weblink.php";	
+	var sbody   = "addWL=" + linkname + "&linkurl=" + linkurl
+			      + "&linkimage=" + linkimage + "&linklabel=" + linklabel;
 	var xmlHttp = getXMLHttpObject();
 	xmlHttp.onreadystatechange = function() {
 		if (xmlHttp.readyState == 4) { 
@@ -492,15 +492,15 @@ function updateWL(id) {
 	}
 	var name         = "__ID" + id;
 	
-	var LinkId    = id;
-	var LinkName  = getValue(name,0);
-	var LinkUrl   = getValue(name,1);
-	var LinkImage = getValue(name,2);
-	var LinkLabel = getValue(name,3);
+	var linkid    = id;
+	var linkname  = getValue(name,0);
+	var linkurl   = getValue(name,1);
+	var linkimage = getValue(name,2);
+	var linklabel = getValue(name,3);
 	
 	var url     = "admin/webLink.php";
-	var sbody   = "updateWL=" + LinkId + "&LinkName=" + LinkName + "&LinkUrl=" + LinkUrl
-			      + "&LinkImage=" + LinkImage + "&LinkLabel=" + LinkLabel;
+	var sbody   = "updateWL=" + linkid + "&linkname=" + linkname + "&linkurl=" + linkurl
+			      + "&linkimage=" + linkimage + "&linklabel=" + linklabel;
 	var xmlHttp = getXMLHttpObject();
 
 	xmlHttp.onreadystatechange = function() {
@@ -533,9 +533,9 @@ function deleteWL(id) {
 		return false;
 	}
 	
-	var LinkId = id;
-	var url       = "admin/WebLink.php";
-	var sbody     = "deleteWL=" + LinkId;
+	var linkid = id;
+	var url       = "admin/weblink.php";
+	var sbody     = "deleteWL=" + linkid;
 	var xmlHttp   = getXMLHttpObject();
 	
 	xmlHttp.onreadystatechange = function() {
@@ -559,10 +559,10 @@ function banMb(id) {
 		return false;
 	}
 	
-	var MbId  = id;
+	var mbid  = id;
 	
 	var url   = "admin/member.php";
-	var sbody = "banMb=" + MbId;
+	var sbody = "banMb=" + mbid;
 	var xmlHttp = getXMLHttpObject();
 
 	xmlHttp.onreadystatechange = function() {
@@ -586,10 +586,10 @@ function unsetMb(id) {
 		return false;
 	}
 	
-	var MbId  = id;
+	var mbid  = id;
 	
 	var url   = "admin/member.php";
-	var sbody = "unsetMb=" + MbId;
+	var sbody = "unsetMb=" + mbid;
 	var xmlHttp = getXMLHttpObject();
 
 	xmlHttp.onreadystatechange = function() {
@@ -613,10 +613,10 @@ function abolishMb(id) {
 		return false;
 	}
 	
-	var MbId  = id;
+	var mbid  = id;
 	
 	var url   = "admin/member.php";
-	var sbody = "abolishMb=" + MbId;
+	var sbody = "abolishMb=" + mbid;
 	var xmlHttp = getXMLHttpObject();
 
 	xmlHttp.onreadystatechange = function() {
@@ -636,19 +636,19 @@ function abolishMb(id) {
 
 /*add advertisement ..				*/
 function addAd() {
-	var AdBusiness    = getValue('AdBusiness',0);
-	var AdUrl         = getValue('AdUrl',0);
-	var AdImage       = getValue('AdImage',0);
-	var AdPower       = getValue('AdPower',0);
-	var AdDescription = getValue('AdDescription',0);
+	var adbusiness    = getValue('adbusiness',0);
+	var adurl         = getValue('adurl',0);
+	var adimage       = getValue('adimage',0);
+	var adpower       = getValue('adpower',0);
+	var addescription = getValue('addescription',0);
 	/*verify the data efficiency     */
-	if (AdBusiness == '' || AdUrl == '' || AdImage == '') {
+	if (adbusiness == '' || adurl == '' || adimage == '') {
 		document.getElementById('Adtips').innerHTML = '存在空值!';
 		return false;
 	}
 	var url 	= "admin/advertisement.php";	
-	var sbody   = "addAd=" + AdBusiness + "&AdUrl=" + AdUrl + "&AdDescription=" + AdDescription
-			      + "&AdImage=" + AdImage + "&AdPower=" + AdPower;
+	var sbody   = "addAd=" + adbusiness + "&adurl=" + adurl + "&addescription=" + addescription
+			      + "&adimage=" + adimage + "&adpower=" + adpower;
 	var xmlHttp = getXMLHttpObject();
 	xmlHttp.onreadystatechange = function() {
 		if (xmlHttp.readyState == 4) { 
@@ -679,16 +679,16 @@ function updateAd(id) {
 	}
 	var name         = "__ID" + id;
 	
-	var AdId          = id;
-	var AdBusiness    = getValue(name,0);
-	var AdUrl         = getValue(name,1);
-	var AdImage       = getValue(name,2);
-	var AdPower       = getValue(name,3);
-	var AdDescription = getValue(name,4);
+	var adid          = id;
+	var adbusiness    = getValue(name,0);
+	var adurl         = getValue(name,1);
+	var adimage       = getValue(name,2);
+	var adpower       = getValue(name,3);
+	var addescription = getValue(name,4);
 	
 	var url     = "admin/advertisement.php";
-	var sbody   = "updateAd=" + AdId + "&AdBusiness=" + AdBusiness + "&AdUrl=" + AdUrl 
-				  + "&AdDescription=" + AdDescription + "&AdImage=" + AdImage + "&AdPower=" + AdPower;
+	var sbody   = "updateAd=" + adid + "&adbusiness=" + adbusiness + "&adurl=" + adurl 
+				  + "&addescription=" + addescription + "&adimage=" + adimage + "&adpower=" + adpower;
 	var xmlHttp = getXMLHttpObject();
 
 	xmlHttp.onreadystatechange = function() {
@@ -719,9 +719,9 @@ function deleteAd(id) {
 		return false;
 	}
 	
-	var AdId = id;
+	var adid = id;
 	var url       = "admin/advertisement.php";
-	var sbody     = "deleteAd=" + AdId;
+	var sbody     = "deleteAd=" + adid;
 	var xmlHttp   = getXMLHttpObject();
 	
 	xmlHttp.onreadystatechange = function() {
@@ -740,18 +740,18 @@ function deleteAd(id) {
 
 /* add book                           */
 function addLib() {
-	var BookName         = getValue('BookName',0);
-	var BookAuthor       = getValue('BookAuthor',0);
-	var BookPress        = getValue('BookPress',0);
-	var BookPublishTimes = getValue('BookPublishTimes',0);
+	var bookname         = getValue('bookname',0);
+	var bookauthor       = getValue('bookauthor',0);
+	var bookpress        = getValue('bookpress',0);
+	var bookpublishtimes = getValue('bookpublishtimes',0);
 	/*verify the data efficiency     */
-	if (BookName == '' || BookAuthor == '' || BookPress == '') {
+	if (bookname == '' || bookauthor == '' || bookpress == '') {
 		document.getElementById('libTips').innerHTML = '空值!';
 		return false;
 	}
-	var url 	= "admin/Library.php";	
-	var sbody   = "addLib=" + BookName + "&BookAuthor=" + BookAuthor 
-	            + "&BookPress=" + BookPress + "&BookPublishTimes=" + BookPublishTimes;
+	var url 	= "admin/library.php";	
+	var sbody   = "addLib=" + bookname + "&bookauthor=" + bookauthor 
+	            + "&bookpress=" + bookpress + "&bookpublishtimes=" + bookpublishtimes;
 	var xmlHttp = getXMLHttpObject();
 	xmlHttp.onreadystatechange = function() {
 		if (xmlHttp.readyState == 4) { 
@@ -775,15 +775,15 @@ function updateLib(id) {
 	}
 	var name         = "__ID" + id;
 	
-	var BookId           = id;
-	var BookName         = getValue(name,0);
-	var BookAuthor       = getValue(name,1);
-	var BookPress        = getValue(name,2);
-	var BookPublishTimes = getValue(name,3);
+	var bookid           = id;
+	var bookname         = getValue(name,0);
+	var bookauthor       = getValue(name,1);
+	var bookpress        = getValue(name,2);
+	var bookpublishtimes = getValue(name,3);
 	
-	var url     = "admin/Library.php";
-	var sbody   = "updateLib=" + BookId +"&BookName=" + BookName + "&BookAuthor=" + BookAuthor 
-	            + "&BookPress=" + BookPress + "&BookPublishTimes=" + BookPublishTimes;
+	var url     = "admin/library.php";
+	var sbody   = "updateLib=" + bookid +"&bookname=" + bookname + "&bookauthor=" + bookauthor 
+	            + "&bookpress=" + bookpress + "&bookpublishtimes=" + bookpublishtimes;
 	var xmlHttp = getXMLHttpObject();
 
 	xmlHttp.onreadystatechange = function() {
@@ -807,9 +807,9 @@ function deleteLib(id) {
 		return false;
 	}
 	
-	var BookId  = id;
+	var bookid  = id;
 	var url     = 'admin/library.php';
-	var sbody   = 'deleteLib=' + BookId;
+	var sbody   = 'deleteLib=' + bookid;
 	var xmlHttp = getXMLHttpObject();
 	
 	xmlHttp.onreadystatechange = function () {
@@ -836,27 +836,27 @@ function detailLib(id) {
 	}
 }
 </script>
-<!-- StyleSheet -->
+<!-- styleSheet -->
 <style type="text/css">
 #addTips,#MCtips,#CCtips,#WLtips,#Adtips,#libTips {
 	background-color:#FFDDFF;
 	color:#FF0000;}
 </style>
-<!-- document.UserInforContent.start -->
+<!-- document.userInforContent.start -->
 <div id="content">
 <!-- FunctionList.start -->
 <div class="functionlist">
-<!-- UserManagement.start -->
+<!-- userManagement.start -->
 <div onmousedown="fold('userinfor')" class="list-title">
-<h1><img src="image/spacer.gif" alt="UserM" />用户管理</h1></div>
+<h1><img src="/image/spacer.gif" alt="userM" />用户管理</h1></div>
 <div id="userinfor" class="list-content">
 <ul>
-	<a href="" onclick="return adminInfo('userInfo','showUser');" ><li>޸查看用户</li></a>
+	<a href="" onclick="return adminInfo('userInfo','showuser');" ><li>޸查看用户</li></a>
 	<a href="" onclick="return adminInfo('userInfo','changePassword');" ><li>޸修改密码</li></a>
-	<a href="" onclick="return logout();" ><li>޸安全退出</li></a></ul></div><!-- UserManagement.stop -->
+	<a href="" onclick="return logout();" ><li>޸安全退出</li></a></ul></div><!-- userManagement.stop -->
 <!-- myLibrary.start -->
 <div onmousedown="fold('library')" class="list-title">
-<h1><img src="image/spacer.gif" alt="Library" />我的图书馆</h1></div>
+<h1><img src="/image/spacer.gif" alt="Library" />我的图书馆</h1></div>
 <div id="library" class="list-content">
 <ul>
 	<a href="" onclick="return adminInfo('BMClass','BMClass')" ><li>޸一级分类</li></a>
@@ -865,21 +865,21 @@ function detailLib(id) {
 </ul></div><!--myLibrary.stop -->
 <!-- Member Information.start -->
 <div onmousedown="fold('member')" class="list-title">
-<h1><img src="image/spacer.gif" alt="memberInfo" />会员信息</h1></div>
+<h1><img src="/image/spacer.gif" alt="memberInfo" />会员信息</h1></div>
 <div id="member" class="list-content">
 <ul>
 	<a href="" onclick="return adminInfo('Member','Member')"><li>会员处理</li></a>
 </ul></div><!-- Member Information.stop -->
 <!-- Order.start -->
 <div onmousedown="fold('order')" class="list-title">
-<h1><img src="image/spacer.gif" alt="order" />我的订单</h1></div>
+<h1><img src="/image/spacer.gif" alt="order" />我的订单</h1></div>
 <div id="order" class="list-content">
 <ul>
 	<a href="" onclick="return adminInfo('Order','Order')"><li>订单处理</li></a>
 </ul></div><!-- Order.stop -->
 <!-- news.start -->
 <div onmousedown="fold('news')" class="list-title">
-<h1><img src="image/spacer.gif" alt="NewsAndNotice" />新闻与公告</h1></div>
+<h1><img src="/image/spacer.gif" alt="NewsAndNotice" />新闻与公告</h1></div>
 <div id="news" class="list-content">
 <ul>
 	<a href="" onclick="return adminInfo('News','News')"><li>新闻处理</li></a>
@@ -887,7 +887,7 @@ function detailLib(id) {
 </ul></div><!-- news.stop -->
 <!-- Order.start -->
 <div onmousedown="fold('advertise')" class="list-title">
-<h1><img src="image/spacer.gif" alt="AD." />广告赞助</h1></div>
+<h1><img src="/image/spacer.gif" alt="AD." />广告赞助</h1></div>
 <div id="advertise" class="list-content">
 <ul>
 	<a href="" onclick="return adminInfo('advertisement','advertisement');"><li>广告处理</li></a>
@@ -895,7 +895,7 @@ function detailLib(id) {
 </ul></div><!-- Order.stop -->
 <!-- webLink.start -->
 <div onmousedown="fold('weblink')" class="list-title">
-<h1><img src="image/spacer.gif" alt="friendlylinks" />友情链接</h1></div>
+<h1><img src="/image/spacer.gif" alt="friendlylinks" />友情链接</h1></div>
 <div id="weblink" class="list-content">
 <ul>
 	<a href="" onclick="return adminInfo('weblink','Weblink');"><li>友情链接</li></a>
@@ -903,16 +903,16 @@ function detailLib(id) {
 </ul></div><!-- webLink.stop -->
 <!-- DataBase optimization.start -->
 <div onmousedown="fold('database')" class="list-title">
-<h1><img src="image/spacer.gif" alt="databaseOptimize" />数据库优化</h1></div>
+<h1><img src="/image/spacer.gif" alt="databaseOptimize" />数据库优化</h1></div>
 <div id="database" class="list-content">
 <ul>
 	<a href="" onclick="return adminInfo('DataBase','OneKey')"><li>一键优化</li></a>
 	<a href="" onclick="return adminInfo('DataBase','Detail')"><li>详细优化</li></a>
 	<a href="" onclick="return adminInfo('DataBase','Manual')"><li>优化指南</li></a>
 </ul></div><!-- DataBase optimization.stop -->
-</div><!-- UserInfor--FunctionList.sttop -->
-<!-- UserInfor--RightContent.start -->
+</div><!-- userInfor--FunctionList.sttop -->
+<!-- userInfor--RightContent.start -->
 <div id="rightContent">
 
-</div><!-- UserInfor.RightContent.stop -->
-<div class="clear"></div></div><!-- document.UserInforCotent.stop -->
+</div><!-- userInfor.RightContent.stop -->
+<div class="clear"></div></div><!-- document.userInforCotent.stop -->

@@ -31,8 +31,8 @@ $sql = "SELECT * FROM webLink";
 $result = mysql_query($sql,$con);
 while($row = mysql_fetch_array($result)){
 	echo "<li>";
-	echo "<a href='".$row['LinkUrl']."'>";
-	echo $row['LinkName']."</a>";
+	echo "<a href='".$row['linkurl']."'>";
+	echo $row['linkname']."</a>";
 	echo "</li>";
 }
 ?>
@@ -47,7 +47,7 @@ while($row = mysql_fetch_array($result)){
 	<li>邮编:230039</li>
 	<div class="clear"></div></ul>
 <p>
-版权所有，盗版不究!<a href="Admin/AdminLogin.php"><span style="color:#FFFF99;">后台</span></a></p>
+版权所有，盗版不究!<a href="/admin/adminlogin.php"><span style="color:#FFFF99;">后台</span></a></p>
 </div>
 </div><!-- footer.stop -->
 </div><!-- document.stop -->

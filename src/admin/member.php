@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('../script/php/validateUser.php');
+require('../script/php/validateuser.php');
 require('../model/conn.php');
 
 /* Member Information              					*/
@@ -8,7 +8,7 @@ require('../model/conn.php');
 function showMember($con) {
 	/*	Initilize parameters      		*/
 	$sql	    = " SELECT * FROM memberInfo";
-	$sql       .= " ORDER BY MbId,MbDate,MbDeleted";
+	$sql       .= " ORDER BY mbid,mbdate,mbdeleted";
 				/*....................................*/
 	$pagesize   = 10;                                                /*每页显示的记录数                   */
 	$totalRows  = mysql_num_rows(mysql_query($sql,$con));           /*记录总数                          */
@@ -40,15 +40,15 @@ function showMember($con) {
 	/*	table body                       */
 	while ($rowMb = mysql_fetch_array($result)) {
 		echo "<tr>";
-		echo "<td>".$rowMb['MbId']."</td>";
-		echo "<td>".$rowMb['MbName']."</td>";
-		echo "<td>".$rowMb['MbPassword']."</td>";
-		echo "<td>".$rowMb['MbLevel']."</td>";
-		echo "<td>".$rowMb['MbPoints']."</td>";
-		echo "<td>".$rowMb['MbDate']."</td>";
-		echo "<td>".$rowMb['MbTime']."</td>";
-		/* show member Status (MbDeleted..)     */
-			switch($rowMb['MbDeleted']){
+		echo "<td>".$rowMb['mbid']."</td>";
+		echo "<td>".$rowMb['mbname']."</td>";
+		echo "<td>".$rowMb['mbpassword']."</td>";
+		echo "<td>".$rowMb['mblevel']."</td>";
+		echo "<td>".$rowMb['mbpoints']."</td>";
+		echo "<td>".$rowMb['mbdate']."</td>";
+		echo "<td>".$rowMb['mbtime']."</td>";
+		/* show member Status (mbdeleted..)     */
+			switch($rowMb['mbdeleted']){
 				case 0:
 					echo "<td class=\"status0\">正&nbsp;常....</td>";
 					break;
@@ -61,15 +61,15 @@ function showMember($con) {
 			}
 		/*-----------            */
 		echo "<td>";
-			if ($rowMb['MbDeleted'] == 0) {
-				echo "<button type=\"button\" onclick=\"return banMb('".$rowMb['MbId']."');\">";
+			if ($rowMb['mbdeleted'] == 0) {
+				echo "<button type=\"button\" onclick=\"return banMb('".$rowMb['mbid']."');\">";
 		  		echo "封侯</button>";
-				echo "<button type=\"button\" onclick=\"return abolishMb('".$rowMb['MbId']."');\">";
+				echo "<button type=\"button\" onclick=\"return abolishMb('".$rowMb['mbid']."');\">";
 		  		echo "废除</button>";
-			} elseif ($rowMb['MbDeleted'] == 1) {
-				echo "<button type=\"button\" onclick=\"return unsetMb('".$rowMb['MbId']."');\">";
+			} elseif ($rowMb['mbdeleted'] == 1) {
+				echo "<button type=\"button\" onclick=\"return unsetMb('".$rowMb['mbid']."');\">";
 		  		echo "解封</button>";
-				echo "<button type=\"button\" onclick=\"return abolishMb('".$rowMb['MbId']."');\">";
+				echo "<button type=\"button\" onclick=\"return abolishMb('".$rowMb['mbid']."');\">";
 		  		echo "废除</button>";
 			} else {
 				echo "<button type=\"button\" >已废除....</button>";
@@ -131,12 +131,12 @@ if (isset($_GET['Member'])) {
 }
 /*ban member            				*/
 if (isset($_POST['banMb'])) {
-	$MbId      = $_POST['banMb'];
-	$MbDeleted = 1;
+	$mbid      = $_POST['banMb'];
+	$mbdeleted = 1;
 	
 	$sql  = " UPDATE memberInfo";
-	$sql .= " SET MbDeleted = '$MbDeleted'";
-	$sql .= " WHERE MbId = '$MbId'";
+	$sql .= " SET mbdeleted = '$mbdeleted'";
+	$sql .= " WHERE mbid = '$mbid'";
 	
 	$result = mysql_query($sql,$con);
 	if ($result) {
@@ -148,12 +148,12 @@ if (isset($_POST['banMb'])) {
 }
 /*unset member				*/
 if (isset($_POST['unsetMb'])) {
-	$MbId      = $_POST['unsetMb'];
-	$MbDeleted = 0;
+	$mbid      = $_POST['unsetMb'];
+	$mbdeleted = 0;
 	
 	$sql  = " UPDATE memberInfo";
-	$sql .= " SET MbDeleted = '$MbDeleted'";
-	$sql .= " WHERE MbId = '$MbId'";
+	$sql .= " SET mbdeleted = '$mbdeleted'";
+	$sql .= " WHERE mbid = '$mbid'";
 	
 	$result = mysql_query($sql,$con);
 	if ($result) {
@@ -165,12 +165,12 @@ if (isset($_POST['unsetMb'])) {
 }
 /*abolish member				*/
 if (isset($_POST['abolishMb'])) {
-	$MbId      = $_POST['abolishMb'];
-	$MbDeleted = 2;
+	$mbid      = $_POST['abolishMb'];
+	$mbdeleted = 2;
 	
 	$sql  = " UPDATE memberInfo";
-	$sql .= " SET MbDeleted = '$MbDeleted'";
-	$sql .= " WHERE MbId = '$MbId'";
+	$sql .= " SET mbdeleted = '$mbdeleted'";
+	$sql .= " WHERE mbid = '$mbid'";
 	
 	$result = mysql_query($sql,$con);
 	if ($result) {

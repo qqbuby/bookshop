@@ -1,4 +1,4 @@
-// JavaScript Document
+// Javascript Document
 /*page ..................*/
 function page(page,url){
 	var url     = url+"?page=" + page + "&" + Math.random();        /*这么Math.random()是用来屏蔽缓存文件滴   */

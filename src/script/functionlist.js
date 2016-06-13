@@ -1,4 +1,4 @@
-// JavaScript Document
+// Javascript Document
 function puker(str){
 	var display=document.getElementById(str).style.display;
 	if (display=="none"){

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('../script/php/validateUser.php');
+require('../script/php/validateuser.php');
 require('../model/conn.php');
 
 /* insert input form model ...........        */
@@ -41,27 +41,27 @@ function showLibrary($con) {
 	/*	table body                       */
 	while ($rowLib = mysql_fetch_array($result)) {
 		echo "<tr>";
-		echo "<td>".$rowLib['BookId']."</td>";
+		echo "<td>".$rowLib['bookid']."</td>";
 		echo "<td>";
-			getinput($rowLib['BookName'],$rowLib['BookId']);
+			getinput($rowLib['bookname'],$rowLib['bookid']);
 		echo "</td>";
 		echo "<td>";
-			getinput($rowLib['BookAuthor'],$rowLib['BookId']);
+			getinput($rowLib['bookauthor'],$rowLib['bookid']);
 		echo "</td>";
 		echo "<td>";
-			getinput($rowLib['BookPress'],$rowLib['BookId']);
+			getinput($rowLib['bookpress'],$rowLib['bookid']);
 		echo "</td>";
 		echo "<td>";
-			getinput($rowLib['BookPublishTimes'],$rowLib['BookId']);
+			getinput($rowLib['bookpublishtimes'],$rowLib['bookid']);
 		echo "</td>";
 		echo "<td>";
-		  echo "<button type=\"button\" onclick=\"return updateLib('".$rowLib['BookId']."');\">更新</button>";
-		  echo "<button type=\"button\" onclick=\"return deleteLib('".$rowLib['BookId']."');\">删除</button>";
-		  echo "<button type=\"button\" onclick=\"return detailLib('".$rowLib['BookId']."');\">详情</button>";
+		  echo "<button type=\"button\" onclick=\"return updateLib('".$rowLib['bookid']."');\">更新</button>";
+		  echo "<button type=\"button\" onclick=\"return deleteLib('".$rowLib['bookid']."');\">删除</button>";
+		  echo "<button type=\"button\" onclick=\"return detailLib('".$rowLib['bookid']."');\">详情</button>";
 		echo "</td>";
 		echo "</tr>";
 		echo "<tr>";
-		echo "<td colspan=\"6\" id=\"__detail".$rowLib['BookId']."\" style=\"display:none;\">";
+		echo "<td colspan=\"6\" id=\"__detail".$rowLib['bookid']."\" style=\"display:none;\">";
 		echo "图书详情,(*^__^*) 嘻嘻……";
 		echo "</td>";
 		echo "</tr>";
@@ -70,10 +70,10 @@ function showLibrary($con) {
 	echo
 	   "<tr>
 			<td id=\"libTips\"></td>
-			<td><input type=\"text\" name=\"BookName\" size=\"12\" /></td>
-			<td><input type=\"text\" name=\"BookAuthor\" size=\"12\" /></td>
-			<td><input type=\"text\" name=\"BookPress\" size=\"12\" /></td>
-			<td><input type=\"text\" name=\"BookPublishTimes\" size=\"12\" /></td>
+			<td><input type=\"text\" name=\"bookname\" size=\"12\" /></td>
+			<td><input type=\"text\" name=\"bookauthor\" size=\"12\" /></td>
+			<td><input type=\"text\" name=\"bookpress\" size=\"12\" /></td>
+			<td><input type=\"text\" name=\"bookpublishtimes\" size=\"12\" /></td>
 			<td><button type=\"button\" onclick=\"return addLib();\">添加</button></td>
 		</tr>";
 	/* table page code 					*/
@@ -127,16 +127,16 @@ if (isset($_GET['Library'])) {
 }
 /* add book .	.					*/
 if (isset($_POST['addLib'])) {
-	$BookName         = $_POST['addLib'];
-	$BookAuthor       = $_POST['BookAuthor'];
-	$BookPress        = $_POST['BookPress'];
-	$BookPublishTimes = $_POST['BookPublishTimes'];
+	$bookname         = $_POST['addLib'];
+	$bookauthor       = $_POST['bookauthor'];
+	$bookpress        = $_POST['bookpress'];
+	$bookpublishtimes = $_POST['bookpublishtimes'];
 
 	/*add book start				*/
 	$sql  = " INSERT INTO bookInfo";
-	$sql .= " (BookName,BookAuthor,BookPress,BookPublishTimes)";
+	$sql .= " (bookname,bookauthor,bookpress,bookpublishtimes)";
 	$sql .= " VALUES";
-	$sql .= " ('$BookName','$BookAuthor','$BookPress','$BookPublishTimes')";
+	$sql .= " ('$bookname','$bookauthor','$bookpress','$bookpublishtimes')";
 	$result = mysql_query($sql,$con);
 	if ($result) {
 		showLibrary($con);
@@ -147,17 +147,17 @@ if (isset($_POST['addLib'])) {
 }
 /*update book 					*/
 if (isset($_POST['updateLib'])) {
-	$BookId           = $_POST['updateLib'];
-	$BookName         = $_POST['BookName'];
-	$BookAuthor       = $_POST['BookAuthor'];
-	$BookPress        = $_POST['BookPress'];
-	$BookPublishTimes = $_POST['BookPublishTimes'];
+	$bookid           = $_POST['updateLib'];
+	$bookname         = $_POST['bookname'];
+	$bookauthor       = $_POST['bookauthor'];
+	$bookpress        = $_POST['bookpress'];
+	$bookpublishtimes = $_POST['bookpublishtimes'];
 	
 	$sql  = " UPDATE bookInfo ";
 	$sql .= " SET";
-	$sql .= " BookName = '$BookName',BookAuthor = '$BookAuthor',";
-	$sql .= " BookPress='$BookPress',BookPublishTimes='$BookPublishTimes'";
-	$sql .= " WHERE BookId = '$BookId'";
+	$sql .= " bookname = '$bookname',bookauthor = '$bookauthor',";
+	$sql .= " bookpress='$bookpress',bookpublishtimes='$bookpublishtimes'";
+	$sql .= " WHERE bookid = '$bookid'";
 
 	$result = mysql_query($sql,$con);
 	if ($result) {
@@ -169,9 +169,9 @@ if (isset($_POST['updateLib'])) {
 }
 /*delete book 						*/
 if (isset($_POST['deleteLib'])) {
-	$BookId = $_POST['deleteLib'];
+	$bookid = $_POST['deleteLib'];
 	$sql	   = " DELETE FROM bookInfo";
-	$sql	  .= " WHERE BookId = '$BookId'";
+	$sql	  .= " WHERE bookid = '$bookid'";
 	
 	$result = mysql_query($sql,$con);
 	if ($result) {

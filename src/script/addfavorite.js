@@ -1,7 +1,7 @@
-// JavaScript Document
-function addFavorite(BookId){
-	var url = "user/myFavorite.php";
-	var sbody = "addFavorite=" + BookId;
+// Javascript Document
+function addFavorite(bookid){
+	var url = "user/myfavorite.php";
+	var sbody = "addFavorite=" + bookid;
 	var xmlHttp = getXMLHttpObject();
 	xmlHttp.onreadystatechange = function(){
 			if(xmlHttp.readyState == 4){

@@ -1,15 +1,15 @@
 <?php
 /*<!-- myFavorite.start -->*/
 session_start();
-include_once("../script/php/validateMember.php");
+include_once("../script/php/validatemember.php");
 include_once("../model/conn.php");
-include_once("../script/php/payButton.php");
+include_once("../script/php/paybutton.php");
 /*show Favorite table datas ........*/
 function showFavorite($con){
-	$sql = "SELECT FavoriteId,BookInfo.BookId as BookId";
-	$sql .= ",BookName,BookPrice,BookGrade,BookStorage,FavoriteDate ";
+	$sql = "SELECT favoriteid,BookInfo.bookid as bookid";
+	$sql .= ",bookname,bookprice,bookgrade,bookstorage,favoritedate ";
 	$sql .= "FROM favorites,BookInfo ";
-	$sql .= "WHERE favorites.BookId = BookInfo.BookId AND MbId = '".$_SESSION['MbId']."'";
+	$sql .= "WHERE favorites.bookid = BookInfo.bookid AND mbid = '".$_SESSION['mbid']."'";
 			/*....................................*/
 	$pagesize   = 10;                                                /*每页显示的记录数                   */
 	$totalRows  = mysql_num_rows(mysql_query($sql,$con));           /*记录总数                          */
@@ -37,16 +37,16 @@ function showFavorite($con){
 	echo "</tr>";
 	while($rowF = mysql_fetch_array($result)){
 		echo "<tr>";
-		echo "<td>".$rowF['FavoriteId']."</td>";
-		echo "<td>".$rowF['BookName']."</td>";
-		echo "<td>".$rowF['BookGrade']."</td>";
-		echo "<td>".$rowF['BookPrice']."</td>";
-		echo "<td>".$rowF['BookStorage']."</td>";
-		echo "<td>".$rowF['FavoriteDate']."</td>";
+		echo "<td>".$rowF['favoriteid']."</td>";
+		echo "<td>".$rowF['bookname']."</td>";
+		echo "<td>".$rowF['bookgrade']."</td>";
+		echo "<td>".$rowF['bookprice']."</td>";
+		echo "<td>".$rowF['bookstorage']."</td>";
+		echo "<td>".$rowF['favoritedate']."</td>";
 		echo "<td>";
-			echo payButton($rowF['BookId'],$rowF['BookName'],$rowF['BookPrice']);
+			echo payButton($rowF['bookid'],$rowF['bookname'],$rowF['bookprice']);
 			echo "<button type=\"button\" onclick=\"deleteFavorite('";
-			echo $rowF['BookId']."');\" style=\"margin-left:2px;\">取消</button>";
+			echo $rowF['bookid']."');\" style=\"margin-left:2px;\">取消</button>";
 		echo "</td>";
 		echo "</tr>";
 	}
@@ -95,9 +95,9 @@ function showFavorite($con){
 
 	//delete favorite .........
 if(isset($_POST['deleteFavorite'])){
-	$BookId = $_POST['deleteFavorite'];
+	$bookid = $_POST['deleteFavorite'];
 	$sql = "DELETE FROM Favorites";
-	$sql .= " WHERE BookId='".$BookId."'";
+	$sql .= " WHERE bookid='".$bookid."'";
 	$result = mysql_query($sql);
 	if($result){
 		showFavorite($con);
@@ -109,19 +109,19 @@ if(isset($_POST['deleteFavorite'])){
 	//Add favorite ..............
 if(isset($_POST['addFavorite'])){
 	//Initilize parameters .....
-	$BookId = $_POST['addFavorite'];
-	$MbId = $_SESSION['MbId'];
-	$FavoriteDate = date("Y-m-d");
+	$bookid = $_POST['addFavorite'];
+	$mbid = $_SESSION['mbid'];
+	$favoritedate = date("Y-m-d");
 	//verify the favorites uniquensess
 	$sql = "SELECT * FROM Favorites";
-	$sql .= " WHERE BookId='$BookId'";
+	$sql .= " WHERE bookid='$bookid'";
 	$result = mysql_query($sql);
 	$num = mysql_num_rows($result);
 	if($num >0){
 		exit('该书已收藏,谢谢！');
 	}
-	$sql = "INSERT INTO Favorites (BookId,MbId,FavoriteDate)";
-	$sql .= " VALUES('$BookId','$MbId','$FavoriteDate')";
+	$sql = "INSERT INTO Favorites (bookid,mbid,favoritedate)";
+	$sql .= " VALUES('$bookid','$mbid','$favoritedate')";
 	$result = mysql_query($sql);
 	if($result){
 		exit('已放入收藏架!');

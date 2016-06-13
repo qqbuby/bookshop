@@ -5,13 +5,12 @@ session_start();
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<base href="http://localhost/bookshoponline/" />
-<link rel="stylesheet" type="text/css" href="Style/main.css" />
-<link rel="stylesheet" type="text/css" href="Style/header.css" />
-<title>AdminLogin</title>
+<link rel="stylesheet" type="text/css" href="/style/main.css" />
+<link rel="stylesheet" type="text/css" href="/style/header.css" />
+<title>adminLogin</title>
 <style type="text/css">
 .logincontent {
-	background-image:url(image/line.gif);
+	background-image:url(/image/line.gif);
 	font-size:16px;
 }
 .logincontent select {
@@ -30,7 +29,7 @@ session_start();
 #tips {
 	color:red;}
 </style>
-<script type="text/javascript" language="javascript" src="script/getXMLHttpObject.js"></script>
+<script type="text/javascript" language="javascript" src="/script/getxmlhttpobject.js"></script>
 <script type="text/javascript" language="javascript">
 var xmlHttp = null;
 function submitForm(){
@@ -51,7 +50,7 @@ if(isset($_POST['submit'])){
 function login(&$con){
 	$adminName = $_POST['adminName'];
 	$adminPassword = $_POST['adminPassword'];
-	$sql = "SELECT * From UserInfo WHERE userName='$adminName' AND userPassword='$adminPassword'";
+	$sql = "SELECT * From userInfo WHERE userName='$adminName' AND userPassword='$adminPassword'";
 	mysql_select_db("bookshop",$con);
 	$result = mysql_query($sql,$con);
 	$num_rows = mysql_num_rows($result);
@@ -60,7 +59,7 @@ function login(&$con){
 		return $message;
 	}else {
 		while($rowU = mysql_fetch_array($result)){
-			$_SESSION['adminId'] = $rowU['UserId'];
+			$_SESSION['adminId'] = $rowU['userid'];
 		}
 		$_SESSION['adminName'] = $adminName;
 		$url = "admin.php";
@@ -76,7 +75,7 @@ function login(&$con){
 include_once("../model/header.php");
 ?>
 <div class="logincontent">
-<form action="Admin/adminLogin.php" method="post" onsubmit="return submitForm();">
+<form action="/admin/adminlogin.php" method="post" onsubmit="return submitForm();">
 <table>
 	<tr>
 		<td colspan="2"><span id="tips">

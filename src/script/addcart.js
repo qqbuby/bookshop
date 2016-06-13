@@ -1,7 +1,7 @@
-// JavaScript Document
-function addCart(BookId,BookName,BookPrice){
-	var url = "user/myCart.php";
-	var sbody = "addCart=" + BookId + "&BookName=" + BookName +"&BookPrice=" + BookPrice;
+// Javascript Document
+function addCart(bookid,bookname,bookprice){
+	var url = "user/mycart.php";
+	var sbody = "addCart=" + bookid + "&bookname=" + bookname +"&bookprice=" + bookprice;
 	var xmlHttp = getXMLHttpObject();
 	xmlHttp.onreadystatechange = function(){
 			if(xmlHttp.readyState == 4){

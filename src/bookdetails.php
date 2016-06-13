@@ -1,12 +1,12 @@
 <?php
 session_start();
 include_once("model/conn.php");
-include_once('script/php/payUrl.php');
-include_once('script/php/favoriteUrl.php');
-function showBookComment($BookId,$conn) {
-	$sql = "SELECT CommentTitle,CommentContent,CommentDate,MbName";
-	$sql.= " FROM BookComment,MemberInfo WHERE BookComment.MbId=MemberInfo.MbId";
-	$sql.=" AND BookId='".$BookId."'";
+include_once('script/php/payurl.php');
+include_once('script/php/favoriteurl.php');
+function showbookcomment($bookid,$conn) {
+	$sql = "SELECT commenttitle,commentcontent,commentdate,mbname";
+	$sql.= " FROM bookcomment,MemberInfo WHERE bookcomment.mbid=MemberInfo.mbid";
+	$sql.=" AND bookid='".$bookid."'";
 		//....................................//
 	$pagesize = 10;     //每页显示的记录数
 	$totalRows = mysql_num_rows(mysql_query($sql,$conn)); //记录总数
@@ -14,7 +14,7 @@ function showBookComment($BookId,$conn) {
 	$page = (isset($_GET['page'])) ? (int) $_GET['page'] : 1 ;		//当前页数
 	$start = $pagesize*($page-1);				//LIMIT偏移量
 	$stop = $pagesize;							//LIMIT 返回记录的最大数
-	$sql = $sql." ORDER BY CommentDate ASC";
+	$sql = $sql." ORDER BY commentdate ASC";
 	$sql = $sql." limit $start,$stop";
 	//....................................//
 	$resultC = mysql_query($sql,$conn);
@@ -22,10 +22,10 @@ function showBookComment($BookId,$conn) {
 	while($rowC = mysql_fetch_array($resultC)){
 		echo "<div class=\"comment-content\">";
 		echo "<label>".$i,"楼</label>";
-		echo "<pre><strong>标题:".$rowC['CommentTitle']."</strong><br />".$rowC['CommentContent']."</pre>";
+		echo "<pre><strong>标题:".$rowC['commenttitle']."</strong><br />".$rowC['commentcontent']."</pre>";
 		echo "<ul>";
-		echo "<li>发表于".$rowC['CommentDate']."</li>";
-		echo "<li>用户:".$rowC['MbName']."</li>";
+		echo "<li>发表于".$rowC['commentdate']."</li>";
+		echo "<li>用户:".$rowC['mbname']."</li>";
 		echo "<div class=\"clear\"></div></ul>";
 		echo "<hr />";
 		echo "</div>";
@@ -33,7 +33,7 @@ function showBookComment($BookId,$conn) {
 	}
 	echo "<div class=\"pagecode\">";
 		//.............首页...........
-	$url = $_SERVER['PHP_SELF']."?BookId=$BookId&page=1";
+	$url = $_SERVER['PHP_SELF']."?bookid=$bookid&page=1";
 	if ($page > 1){
 		echo "<label><a href=\"$url\">首页</a></label>";
 	} else {
@@ -41,7 +41,7 @@ function showBookComment($BookId,$conn) {
 	} 
 	if ($page > 1) {
 		$prev = $page - 1;
-		$url = $_SERVER['PHP_SELF']."?BookId=$BookId&page=$prev";
+		$url = $_SERVER['PHP_SELF']."?bookid=$bookid&page=$prev";
 		echo "<label><a href=\"$url\">上一页</a></label>";
 	} else {
 		echo "<label>上一页</label>";
@@ -51,7 +51,7 @@ function showBookComment($BookId,$conn) {
 		//...........下一页............	
 	if ($totalPages > $page) {
 		$next = $page + 1;
-		$url = $_SERVER['PHP_SELF']."?BookId=$BookId&page=$next";
+		$url = $_SERVER['PHP_SELF']."?bookid=$bookid&page=$next";
 		echo "<label><a href=\"$url\">下一页</a></label>";
 	} else {
 		echo "<label>下一页</label>";
@@ -60,7 +60,7 @@ function showBookComment($BookId,$conn) {
 	if($page >= $totalPages){
 		echo "<label>尾页</label>";
 	}else {
-		$url = $_SERVER['PHP_SELF']."?BookId=$BookId&page=$totalPages";
+		$url = $_SERVER['PHP_SELF']."?bookid=$bookid&page=$totalPages";
 		echo "<label><a href=\"$url\">尾页</a></label>";
 	}
 		//............页码嘿嘿...........
@@ -70,19 +70,19 @@ function showBookComment($BookId,$conn) {
 }
 //Add Comment ..................
 if(isset($_POST['commentTitle'])){
-	if(!isset($_SESSION['MbId'])){
+	if(!isset($_SESSION['mbid'])){
 		echo "login";
 		exit();
 	}
-	$BookId = $_POST['BookId'];
+	$bookid = $_POST['bookid'];
 	$commentTitle = $_POST['commentTitle'];
 	$commentContent = $_POST['commentContent'];
 	$commentDate = date("Y-m-d-H-i-s");
-	$MbId = $_SESSION['MbId'];
-	$sql = "INSERT INTO BookComment (BookId,MbId,CommentTitle,CommentDate,CommentContent)";
-	$sql.= " VALUES ('$BookId','$MbId','$commentTitle','$commentDate','$commentContent')";
+	$mbid = $_SESSION['mbid'];
+	$sql = "INSERT INTO bookcomment (bookid,mbid,commenttitle,commentdate,commentcontent)";
+	$sql.= " VALUES ('$bookid','$mbid','$commentTitle','$commentDate','$commentContent')";
 	mysql_query($sql,$con) or die('error'.mysql_error());
-	showBookComment($BookId,$con);
+	showbookcomment($bookid,$con);
 	exit();
 }
 ?>
@@ -91,16 +91,16 @@ if(isset($_POST['commentTitle'])){
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <base href="http://localhost/bookshoponline/" />
-<link rel="stylesheet" type="text/css" href="Style/main.css" />
-<link rel="stylesheet" type="text/css" href="Style/header.css" />
-<link rel="stylesheet" type="text/css" href="Style/Content.css" />
+<link rel="stylesheet" type="text/css" href="style/main.css" />
+<link rel="stylesheet" type="text/css" href="style/header.css" />
+<link rel="stylesheet" type="text/css" href="style/content.css" />
 <title>BookDetails</title>
 </head>
 
 <body>
 <?php
 include_once("model/header.php");
-include_once("index/BookDetailsContent.php");
+include_once("index/bookdetailscontent.php");
 include_once("model/footer.php");
 ?>
 </body>

@@ -1,6 +1,6 @@
 ﻿<?php
 session_start();
-require('../script/php/validateUser.php');
+require('../script/php/validateuser.php');
 require('../model/conn.php');
 
 /* insert input form model ...........        */
@@ -27,11 +27,11 @@ function showChildClass($con) {
 			<th>操作</th>
 		</tr>";
 	/*talbe body 					*/
-	$sqlC  = " SELECT BCClassId,BCClassName
-		    ,BCClassLabel,BCClassViewCount,BMClassName,bookChildClass.BMClassId as BMClassId";
+	$sqlC  = " SELECT bcclassid,bcclassname
+		    ,bcclasslabel,bcclassviewcount,bmclassname,bookChildClass.bmclassid as bmclassid";
 	$sqlC .= " FROM bookChildClass,bookMainClass";
-	$sqlC .= " WHERE bookChildClass.BMClassId = bookMainClass.BMClassId";
-	$sqlC .= " ORDER BY BMClassId,BCClassName";
+	$sqlC .= " WHERE bookChildClass.bmclassid = bookMainClass.bmclassid";
+	$sqlC .= " ORDER BY bmclassid,bcclassname";
 		/*....................................*/
 	$pagesize   = 10;                                                /*每页显示的记录数                   */
 	$totalRows  = mysql_num_rows(mysql_query($sqlC,$con));           /*记录总数                          */
@@ -41,20 +41,20 @@ function showChildClass($con) {
 	$stop = $pagesize;								                 /*LIMIT 返回记录的最大数             */
 	$sqlC = $sqlC." limit $start,$stop";
 		/*....................................*/
-	$sqlM  = " SELECT BMClassId,BMClassName FROM bookMainClass";
+	$sqlM  = " SELECT bmclassid,bmclassname FROM bookMainClass";
 	
 	$resultC = mysql_query($sqlC,$con) or die('Error ...');
 	
 	while ($rowBC = mysql_fetch_array($resultC)) {
 		echo "<tr>";
-		echo "<td>".$rowBC['BCClassId']."</td>";
+		echo "<td>".$rowBC['bcclassid']."</td>";
 		echo "<td>";
-			getinput($rowBC['BCClassName'],$rowBC['BCClassId']);
+			getinput($rowBC['bcclassname'],$rowBC['bcclassid']);
 		echo "</td>";
 		echo "<td>";
-			echo "<select name=\"__ID".$rowBC['BCClassId']."\">";
-			echo "<option value=\"".$rowBC['BCClassLabel']."\">";
-			switch ($rowBC['BCClassLabel']){
+			echo "<select name=\"__ID".$rowBC['bcclassid']."\">";
+			echo "<option value=\"".$rowBC['bcclasslabel']."\">";
+			switch ($rowBC['bcclasslabel']){
 			case 0:
 				echo "是";
 				break;
@@ -68,19 +68,19 @@ function showChildClass($con) {
 			echo "<option value=\"1\">否</option>";
 			echo "</select>";
 		echo "</td>";
-		echo "<td>".$rowBC['BCClassViewCount']."</td>";
+		echo "<td>".$rowBC['bcclassviewcount']."</td>";
 		echo "<td>";
-			echo "<select name=\"__ID".$rowBC['BCClassId']."\">";
-			echo "<option value=\"".$rowBC['BMClassId']."\">".$rowBC['BMClassName']."</option>";
+			echo "<select name=\"__ID".$rowBC['bcclassid']."\">";
+			echo "<option value=\"".$rowBC['bmclassid']."\">".$rowBC['bmclassname']."</option>";
 			$resultM = mysql_query($sqlM,$con) or die('Error ...');		
 			while ($rowMC = mysql_fetch_array($resultM)) {
-				echo "<option value='".$rowMC['BMClassId']."'>".$rowMC['BMClassName']."</option>";
+				echo "<option value='".$rowMC['bmclassid']."'>".$rowMC['bmclassname']."</option>";
 			}
 			echo "</select>";
 		echo "</td>";
 	    echo "<td>";
-		echo "<button type=\"buttton\" onclick=\"return updateCC('".$rowBC['BCClassId']."');\">更新</button>";
-		echo "<button type=\"buttton\" onclick=\"return deleteCC('".$rowBC['BCClassId']."');\">删除</button>";
+		echo "<button type=\"buttton\" onclick=\"return updateCC('".$rowBC['bcclassid']."');\">更新</button>";
+		echo "<button type=\"buttton\" onclick=\"return deleteCC('".$rowBC['bcclassid']."');\">删除</button>";
 	    echo "</td>";
 		echo "</tr>";
 	}
@@ -88,19 +88,19 @@ function showChildClass($con) {
 	echo 
 	   "<tr>
 			<td id=\"CCtips\"></td>
-			<td><input type=\"text\" name=\"BCClassName\" size=\"12\" /></td>
+			<td><input type=\"text\" name=\"bcclassname\" size=\"12\" /></td>
 			<td>
-				<select name=\"BCClassLabel\">
+				<select name=\"bcclasslabel\">
 					<option value=\"0\">是</option>
 					<option value=\"1\">否</option>
 				</select>
 			</td>
 			<td></td>
 			<td>";
-			echo "<select name=\"BMClassId\">";
+			echo "<select name=\"bmclassid\">";
 			$resultM = mysql_query($sqlM,$con) or die('Error ...');
 			while ($rowMC = mysql_fetch_array($resultM)) {
-				echo "<option value='".$rowMC['BMClassId']."'>".$rowMC['BMClassName']."</option>";
+				echo "<option value='".$rowMC['bmclassid']."'>".$rowMC['bmclassname']."</option>";
 			}
 			echo "</select>
 			</td>
@@ -156,12 +156,12 @@ if (isset($_GET['BCClass'])) {
 }
 /*add book Child Class 						*/
 if (isset($_POST['addCC'])) {
-	$BCClassName  = $_POST['addCC'];
-	$BCClassLabel = $_POST['BCClassLabel'];
-	$BMClassId 	  = $_POST['BMClassId'];
+	$bcclassname  = $_POST['addCC'];
+	$bcclasslabel = $_POST['bcclasslabel'];
+	$bmclassid 	  = $_POST['bmclassid'];
 	/*validate the data uniqueness ...		*/
 	$sql  = " SELECT * FROM bookChildClass";
-	$sql .= " WHERE BCClassName = '$BCClassName'";
+	$sql .= " WHERE bcclassname = '$bcclassname'";
 	
 	$result = mysql_query($sql,$con);
 	$num 	= mysql_num_rows($result);
@@ -170,9 +170,9 @@ if (isset($_POST['addCC'])) {
 	}
 	/*add bookChildClass start				*/
 	$sql  = " INSERT INTO bookChildClass";
-	$sql .= " (BCClassName,BCClassLabel,BMClassId)";
+	$sql .= " (bcclassname,bcclasslabel,bmclassid)";
 	$sql .= " VALUES";
-	$sql .= " ('$BCClassName','$BCClassLabel','$BMClassId')";
+	$sql .= " ('$bcclassname','$bcclasslabel','$bmclassid')";
 	$result = mysql_query($sql,$con);
 	if ($result) {
 		showChildClass($con);
@@ -183,13 +183,13 @@ if (isset($_POST['addCC'])) {
 }
 /*update bookChildClass						*/
 if (isset($_POST['updateCC'])) {
-	$BCClassId    = $_POST['updateCC'];
-	$BCClassName  = $_POST['BCClassName'];
-	$BCClassLabel = $_POST['BCClassLabel'];
-	$BMClassId    = $_POST['BMClassId'];
+	$bcclassid    = $_POST['updateCC'];
+	$bcclassname  = $_POST['bcclassname'];
+	$bcclasslabel = $_POST['bcclasslabel'];
+	$bmclassid    = $_POST['bmclassid'];
 	$sql  = " UPDATE bookChildClass ";
-	$sql .= " SET BCClassName = '$BCClassName',BCClassLabel = '$BCClassLabel',BMClassId='$BMClassId'";
-	$sql .= " WHERE BCClassId = '$BCClassId'";
+	$sql .= " SET bcclassname = '$bcclassname',bcclasslabel = '$bcclasslabel',bmclassid='$bmclassid'";
+	$sql .= " WHERE bcclassid = '$bcclassid'";
 	$result = mysql_query($sql,$con) or die(mysql_error());
 	if ($result) {
 		showChildClass($con);
@@ -200,9 +200,9 @@ if (isset($_POST['updateCC'])) {
 }
 /*delete bookChildClass 						*/
 if (isset($_POST['deleteCC'])) {
-	$BCClassId = $_POST['deleteCC'];
+	$bcclassid = $_POST['deleteCC'];
 	$sql	   = " DELETE FROM bookChildClass";
-	$sql	  .= " WHERE BCClassId = '$BCClassId'";
+	$sql	  .= " WHERE bcclassid = '$bcclassid'";
 	
 	$result = mysql_query($sql,$con);
 	if ($result) {

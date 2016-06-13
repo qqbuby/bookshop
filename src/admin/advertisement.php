@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('../script/php/validateUser.php');
+require('../script/php/validateuser.php');
 require('../model/conn.php');
 
 /* insert input form model ...........        */
@@ -12,7 +12,7 @@ function getInput($value,$id) {
 function showAdvertisement($con) {
 	/*	Initilize parameters      		*/
 	$sql	    = " SELECT * FROM advertisementInfo";
-	$sql       .= " ORDER BY AdBusiness";
+	$sql       .= " ORDER BY adbusiness";
 				/*....................................*/
 	$pagesize   = 10;                                                /*每页显示的记录数                   */
 	$totalRows  = mysql_num_rows(mysql_query($sql,$con));           /*记录总数                          */
@@ -43,26 +43,26 @@ function showAdvertisement($con) {
 	/*	table body                       */
 	while ($rowAd = mysql_fetch_array($result)) {
 		echo "<tr>";
-		echo "<td>".$rowAd['AdId']."</td>";
+		echo "<td>".$rowAd['adid']."</td>";
 		echo "<td>";
-			getinput($rowAd['AdBusiness'],$rowAd['AdId']);
+			getinput($rowAd['adbusiness'],$rowAd['adid']);
 		echo "</td>";
 		echo "<td>";
-			getinput($rowAd['AdUrl'],$rowAd['AdId']);
+			getinput($rowAd['adurl'],$rowAd['adid']);
 		echo "</td>";
 		echo "<td>";
-			getinput($rowAd['AdImage'],$rowAd['AdId']);
+			getinput($rowAd['adimage'],$rowAd['adid']);
 		echo "</td>";
 		echo "<td>";
-			getinput($rowAd['AdPower'],$rowAd['AdId']);	
+			getinput($rowAd['adpower'],$rowAd['adid']);	
 		echo "</td>";
 		echo "<td>";
-			getinput($rowAd['AdDescription'],$rowAd['AdId']);	
+			getinput($rowAd['addescription'],$rowAd['adid']);	
 		echo "</td>";
-		echo "<td>".$rowAd['AddPerson']."</td>";
+		echo "<td>".$rowAd['addperson']."</td>";
 		echo "<td>";
-		  echo "<button type=\"button\" onclick=\"return updateAd('".$rowAd['AdId']."');\">更新</button>";
-		  echo "<button type=\"button\" onclick=\"return deleteAd('".$rowAd['AdId']."');\">删除</button>";
+		  echo "<button type=\"button\" onclick=\"return updateAd('".$rowAd['adid']."');\">更新</button>";
+		  echo "<button type=\"button\" onclick=\"return deleteAd('".$rowAd['adid']."');\">删除</button>";
 		echo "</td>";
 		echo "</tr>";
 	}
@@ -70,11 +70,11 @@ function showAdvertisement($con) {
 	echo
 	   "<tr>
 			<td id=\"Adtips\"></td>
-			<td><input type=\"text\" name=\"AdBusiness\" size=\"6\" /></td>
-			<td><input type=\"text\" name=\"AdUrl\" size=\"6\" /></td>
-			<td><input type=\"text\" name=\"AdImage\" size=\"6\" /></td>
-			<td><input type=\"text\" name=\"AdPower\" size=\"6\" /></td>
-			<td><input type=\"text\" name=\"AdDescription\" size=\"12\" /></td>
+			<td><input type=\"text\" name=\"adbusiness\" size=\"6\" /></td>
+			<td><input type=\"text\" name=\"adurl\" size=\"6\" /></td>
+			<td><input type=\"text\" name=\"adimage\" size=\"6\" /></td>
+			<td><input type=\"text\" name=\"adpower\" size=\"6\" /></td>
+			<td><input type=\"text\" name=\"addescription\" size=\"12\" /></td>
 			<td></td>
 			<td><button type=\"button\" onclick=\"return addAd();\">添加</button></td>
 		</tr>";
@@ -129,23 +129,23 @@ if (isset($_GET['advertisement'])) {
 }
 /* add Ad .	.					*/
 if (isset($_POST['addAd'])) {
-	$AdBusiness    = $_POST['addAd'];
-	$AdImage       = $_POST['AdImage'];
-	$AdUrl         = $_POST['AdUrl'];
-	$AdDescription = $_POST['AdDescription'];
+	$adbusiness    = $_POST['addAd'];
+	$adimage       = $_POST['adimage'];
+	$adurl         = $_POST['adurl'];
+	$addescription = $_POST['addescription'];
 	
-	$path      = $_POST['AdImage'];
+	$path      = $_POST['adimage'];
 	$pathinfo  = pathinfo($path);
 	$extension = strtolower($pathinfo['extension']);
 	if ($extension != 'gif') {
 		exit('0');
 	}
-	$AdImage = "image/webAdImage/".$pathinfo['basename'];
-	$AddPerson = $_SESSION['adminId'];
+	$adimage = "image/webadimage/".$pathinfo['basename'];
+	$addperson = $_SESSION['adminId'];
 	
 	/*validate the data uniqueness ...		*/
 	$sql  = " SELECT * FROM advertisementInfo";
-	$sql .= " WHERE AdBusiness = '$AdBusiness'";
+	$sql .= " WHERE adbusiness = '$adbusiness'";
 	
 	$result = mysql_query($sql,$con);
 	$num 	= mysql_num_rows($result);
@@ -154,9 +154,9 @@ if (isset($_POST['addAd'])) {
 	}
 	/*add Ad start				*/
 	$sql  = " INSERT INTO advertisementInfo";
-	$sql .= " (AdBusiness,AdUrl,AdImage,AdDescription,AddPerson)";
+	$sql .= " (adbusiness,adurl,adimage,addescription,addperson)";
 	$sql .= " VALUES";
-	$sql .= " ('$AdBusiness','$AdUrl','$AdImage','$AdDescription','$AddPerson')";
+	$sql .= " ('$adbusiness','$adurl','$adimage','$addescription','$addperson')";
 	$result = mysql_query($sql,$con);
 	if ($result) {
 		showAdvertisement($con);;
@@ -167,24 +167,24 @@ if (isset($_POST['addAd'])) {
 }
 /*update Advertisement						*/
 if (isset($_POST['updateAd'])) {
-	$AdId	       = $_POST['updateAd'];
-	$AdBusiness    = $_POST['AdBusiness'];
-	$AdPower       = $_POST['AdPower'];
-	$AdUrl         = $_POST['AdUrl'];
-	$AdDescription = $_POST['AdDescription'];
+	$adid	       = $_POST['updateAd'];
+	$adbusiness    = $_POST['adbusiness'];
+	$adpower       = $_POST['adpower'];
+	$adurl         = $_POST['adurl'];
+	$addescription = $_POST['addescription'];
 	
-	/*validate the AdImage type (gif)       */
-	$path      = $_POST['AdImage'];
+	/*validate the adimage type (gif)       */
+	$path      = $_POST['adimage'];
 	$pathinfo  = pathinfo($path);
 	$extension = strtolower($pathinfo['extension']);
 	if ($extension != 'gif') {
 		exit('0');
 	}
-	$AdImage = "image/AdImage/".$pathinfo['basename'];
+	$adimage = "image/adimage/".$pathinfo['basename'];
 	
 	/*validate the data uniqueness ...		
 	$sql  = " SELECT * FROM advertisementInfo";
-	$sql .= " WHERE AdBusiness = '$AdBusiness'";
+	$sql .= " WHERE adbusiness = '$adbusiness'";
 	
 	$result = mysql_query($sql,$con);
 	$num 	= mysql_num_rows($result);
@@ -193,9 +193,9 @@ if (isset($_POST['updateAd'])) {
 	}*/
 	
 	$sql  = " UPDATE AdvertisementInfo ";
-	$sql .= " SET AdBusiness = '$AdBusiness',AdUrl= '$AdUrl',";
-	$sql .= " AdImage = '$AdImage',AdPower = '$AdPower',AdDescription='$AdDescription'";
-	$sql .= " WHERE AdId = '$AdId'";
+	$sql .= " SET adbusiness = '$adbusiness',adurl= '$adurl',";
+	$sql .= " adimage = '$adimage',adpower = '$adpower',addescription='$addescription'";
+	$sql .= " WHERE adid = '$adid'";
 
 	$result = mysql_query($sql,$con);
 	if ($result) {
@@ -207,9 +207,9 @@ if (isset($_POST['updateAd'])) {
 }
 /*delete Advertisement					*/
 if (isset($_POST['deleteAd'])) {
-	$AdId = $_POST['deleteAd'];
+	$adid = $_POST['deleteAd'];
 	$sql	   = " DELETE FROM advertisementInfo";
-	$sql	  .= " WHERE AdId = '$AdId'";
+	$sql	  .= " WHERE adid = '$adid'";
 	
 	$result = mysql_query($sql,$con);
 	if ($result) {
@@ -232,7 +232,7 @@ if (isset($_GET['Manual'])) {
 		<pre>
 		1. 链接图片目前只支持gif格式文件。
 		2. 目前没有图片预览功能,后期必会完善.
-		3. 文件上传文件夹必须在根目录image/AdImage/中。
+		3. 文件上传文件夹必须在根目录image/adimage/中。
 		4. 添加或者修改时，请直接填写文件全名,如xxx.gif。
 		5. 广告权值规定在0-100之间。
 		6. 更新时，有可能导致同名记录...

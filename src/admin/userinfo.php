@@ -1,23 +1,23 @@
 <?php
 session_start();
-require('../script/php/validateUser.php');
+require('../script/php/validateuser.php');
 require('../model/conn.php');
 /*  Initlize parameters 			*/
-$sql    = "SELECT * FROM UserInfo ";
-$sql   .= "WHERE UserId = '".$_SESSION['adminId']."'";
+$sql    = "SELECT * FROM userInfo ";
+$sql   .= "WHERE userid = '".$_SESSION['adminId']."'";
 $result = mysql_query($sql,$con);
 while($rowU = mysql_fetch_array($result)){
-	$UserId 	  = $rowU['UserId'];
-	$UserName 	  = $rowU['UserName'];
-	$UserPassword = $rowU['UserPassword'];
-	$UserRole 	  = $rowU['UserRole'];
-	$UserDeleted  = $rowU['UserDeleted'];
+	$userid 	  = $rowU['userid'];
+	$username 	  = $rowU['username'];
+	$userpassword = $rowU['userpassword'];
+	$userrole 	  = $rowU['userrole'];
+	$userdeleted  = $rowU['userdeleted'];
 } 
 /*	修改密码.start							*/
 /*	CHECK THE OLD PASSWORD			*/
 if(isset($_POST['oldPassword'])){
 	$oldPassword = $_POST['oldPassword'];
-	if($UserPassword == $oldPassword){
+	if($userpassword == $oldPassword){
 		exit();
 	} else {
 		exit('密码不符');
@@ -26,9 +26,9 @@ if(isset($_POST['oldPassword'])){
 /*	changePassword					*/
 if(isset($_POST['newPassword'])){
 	$newPassword = $_POST['newPassword'];
-	$sql  = " UPDATE UserInfo";
-	$sql .= " SET UserPassword = '$newPassword'";
-	$sql .= " WHERE UserId = '$UserId'";
+	$sql  = " UPDATE userInfo";
+	$sql .= " SET userpassword = '$newPassword'";
+	$sql .= " WHERE userid = '$userid'";
 	$reuslt = mysql_query($sql,$con);
 	if($result){
 		exit('修改成功!');
@@ -69,9 +69,9 @@ echo "
 }
 /*	修改密码.stop					*/
 /*	显示用户					*/
-function showUser($con,$UserId){
-	$sql  = " SELECT * FROM UserInfo";
-	$sql .= " WHERE UserId != '$UserId'";
+function showuser($con,$userid){
+	$sql  = " SELECT * FROM userInfo";
+	$sql .= " WHERE userid != '$userid'";
 	$result = mysql_query($sql,$con);
 	/*table th */
 	echo "<table>";
@@ -87,17 +87,17 @@ function showUser($con,$UserId){
 	echo "</tr>";
 	while($rowU = mysql_fetch_array($result)){
 		echo "<tr>";
-		echo "<td>".$rowU['UserId']."</td>";
+		echo "<td>".$rowU['userid']."</td>";
 		echo "<td>";
-			echo userInput($rowU['UserName'],$rowU['UserId']);
+			echo userInput($rowU['username'],$rowU['userid']);
 		echo "</td>";
 		echo "<td>";
-			echo userInput($rowU['UserPassword'],$rowU['UserId']);
+			echo userInput($rowU['userpassword'],$rowU['userid']);
 		echo "</td>";
 		echo "<td>";
-			echo "<select name='id".$rowU['UserId']."'>";
-				echo "<option value='".$rowU['UserRole']."'>";
-					switch($rowU['UserRole']){
+			echo "<select name='id".$rowU['userid']."'>";
+				echo "<option value='".$rowU['userrole']."'>";
+					switch($rowU['userrole']){
 						case 0:
 							echo "管理员";
 							break;
@@ -115,87 +115,87 @@ function showUser($con,$UserId){
 			echo "</select>";
 		echo "</td>";
 		echo "<td>";
-			echo "<button type=\"button\" onclick=\"return updateUser('".$rowU['UserId']."');\">更新</button>";
-			echo "<button type=\"button\" onclick=\"return deleteUser('".$rowU['UserId']."');\">删除</button>";
+			echo "<button type=\"button\" onclick=\"return updateuser('".$rowU['userid']."');\">更新</button>";
+			echo "<button type=\"button\" onclick=\"return deleteuser('".$rowU['userid']."');\">删除</button>";
 		echo "</td>";
 		echo "</tr>";
 	} /* while end	*/
 	/* add user table form 		*/
 	echo "<tr>";
 	echo "<td id='addTips'></td>";
-	echo "<td><input type='text' name='UserName' size='10' /></td>";
-	echo "<td><input type='text' name='UserPassword' size='10' /></td>";
+	echo "<td><input type='text' name='username' size='10' /></td>";
+	echo "<td><input type='text' name='userpassword' size='10' /></td>";
 	echo "<td>";
-		echo "<select name='UserRole'>";
+		echo "<select name='userrole'>";
 			echo "<option value='0'>管理员</option>";
 			echo "<option value='1'>配货员</option>";
 			echo "<option value='2'>订货员</option>";
 		echo "</select>";
 	echo "</td>";
-	echo "<td><button type=\"button\" onclick=\"return addUser();\">添加</button></td>";
+	echo "<td><button type=\"button\" onclick=\"return adduser();\">添加</button></td>";
 	echo "</tr>";
 	echo "</table>";
-}/* showUser	*/
+}/* showuser	*/
 function userInput($value,$id){
 	return "<input type='text' value='$value' name='id$id' size='10' />";
 }
-/* show User 					*/
-if(isset($_GET['showUser'])){
+/* show user 					*/
+if(isset($_GET['showuser'])){
 	header('Content-type:text/html;charset=utf-8');
-	echo showUser($con,$UserId);
+	echo showuser($con,$userid);
 	exit();
 }
 /* add user 					*/
-if(isset($_POST['addUser'])){
-	$UserName     = $_POST['addUser'];
-	$UserPassword = $_POST['UserPassword'];
-	$UserRole     = $_POST['UserRole'];
-	if($UserName == '' || $UserPassword == ''){
+if(isset($_POST['adduser'])){
+	$username     = $_POST['adduser'];
+	$userpassword = $_POST['userpassword'];
+	$userrole     = $_POST['userrole'];
+	if($username == '' || $userpassword == ''){
 		exit('Error.....');
 	}
-	/*verify the UserName uniqueness 		*/
-	$sql    = " SELECT * FROM UserInfo";
-	$sql   .= " WHERE UserName = '$UserName'";
+	/*verify the username uniqueness 		*/
+	$sql    = " SELECT * FROM userInfo";
+	$sql   .= " WHERE username = '$username'";
 	$result = mysql_query($sql,$con);
 	$num 	= mysql_num_rows($result);
 	if($num > 0){
 		exit('0');
 	}
-	$sql 		  = " INSERT INTO UserInfo (UserName,UserPassword,UserRole)";
-	$sql  		 .= " VALUES ('$UserName','$UserPassword','$UserRole')";
+	$sql 		  = " INSERT INTO userInfo (username,userpassword,userrole)";
+	$sql  		 .= " VALUES ('$username','$userpassword','$userrole')";
 	$reuslt		  = mysql_query($sql,$con);
 	if(!$result){
 		exit('Error.....'.mysql_error());
 	}
-	exit(showUser($con,$UserId));
+	exit(showuser($con,$userid));
 }
 /*	update user 				*/
-if(isset($_POST['updateUser'])){
-	$_uUserId 	  = $_POST['updateUser'];
-	$UserName 	  = $_POST['UserName'];
-	$UserPassword = $_POST['UserPassword'];
-	$UserRole 	  = $_POST['UserRole'];
-	if($UserName == '' || $UserPassword == ''){
+if(isset($_POST['updateuser'])){
+	$_uuserid 	  = $_POST['updateuser'];
+	$username 	  = $_POST['username'];
+	$userpassword = $_POST['userpassword'];
+	$userrole 	  = $_POST['userrole'];
+	if($username == '' || $userpassword == ''){
 		exit('0');
 	}
-	$sql    = " UPDATE UserInfo";
-	$sql   .= " SET UserName = '$UserName',UserPassword = '$UserPassword',UserRole = '$UserRole'";
-	$sql   .= " WHERE UserId = '$_uUserId'";
+	$sql    = " UPDATE userInfo";
+	$sql   .= " SET username = '$username',userpassword = '$userpassword',userrole = '$userrole'";
+	$sql   .= " WHERE userid = '$_uuserid'";
 	$result = mysql_query($sql,$con);
 	if(!$result){
 		exit('Error ... ');
 	}else{
-		exit(showUser($con,$UserId));
+		exit(showuser($con,$userid));
 	}
 }
 /*	delete user 				*/
-if(isset($_POST['deleteUser'])){
-	$_dUserId = $_POST['deleteUser'];
-	$sql    = " DELETE FROM UserInfo";
-	$sql   .= " WHERE UserId = '$_dUserId'";
+if(isset($_POST['deleteuser'])){
+	$_duserid = $_POST['deleteuser'];
+	$sql    = " DELETE FROM userInfo";
+	$sql   .= " WHERE userid = '$_duserid'";
 	$result = mysql_query($sql,$con);
 	if($result){
-		exit(showUser($con,$UserId));
+		exit(showuser($con,$userid));
 	}else{
 		exit('0');
 	}

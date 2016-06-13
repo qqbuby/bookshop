@@ -1,14 +1,14 @@
 <?php
 session_start();
-include_once("../script/php/validateMember.php");
+include_once("../script/php/validatemember.php");
 include_once("../model/conn.php");
 /* display the data of the Order table ...*/
 function showOrder($con){
-	$MbId = $_SESSION['MbId'];
-	$sql  = " SELECT OrderId,BookName,OrderCount,OrderAmount,OrderPayment,";
-	$sql .= " OrderDelivery,OrderDate,OrderArrival,OrderStatus FROM OrderInfo,BookInfo";
-	$sql .= " WHERE OrderInfo.BookId = BookInfo.BookId AND MbId='$MbId'";
-	$sql .= " ORDER BY OrderStatus,OrderArrival";	
+	$mbid = $_SESSION['mbid'];
+	$sql  = " SELECT orderid,bookname,ordercount,orderamount,orderpayment,";
+	$sql .= " orderdelivery,orderdate,orderarrival,orderstatus FROM OrderInfo,BookInfo";
+	$sql .= " WHERE OrderInfo.bookid = BookInfo.bookid AND mbid='$mbid'";
+	$sql .= " ORDER BY orderstatus,orderarrival";	
 		/*....................................*/
 	$pagesize   = 10;                                                /*每页显示的记录数                   */
 	$totalRows  = mysql_num_rows(mysql_query($sql,$con));           /*记录总数                          */
@@ -37,16 +37,16 @@ function showOrder($con){
 	echo "</tr>";
 	while ($rowOr = mysql_fetch_array($result)) {
 		echo "<tr>";
-		echo "<td>".$rowOr['OrderId']."</td>";
-		echo "<td>".$rowOr['BookName']."</td>";
-		echo "<td>".$rowOr['OrderCount']."</td>";
-		echo "<td>".$rowOr['OrderAmount']."</td>";
-		echo "<td>".$rowOr['OrderPayment']."</td>";
-		echo "<td>".$rowOr['OrderDelivery']."</td>";
-		echo "<td>".$rowOr['OrderDate']."</td>";
-		echo "<td>".$rowOr['OrderArrival']."</td>";
+		echo "<td>".$rowOr['orderid']."</td>";
+		echo "<td>".$rowOr['bookname']."</td>";
+		echo "<td>".$rowOr['ordercount']."</td>";
+		echo "<td>".$rowOr['orderamount']."</td>";
+		echo "<td>".$rowOr['orderpayment']."</td>";
+		echo "<td>".$rowOr['orderdelivery']."</td>";
+		echo "<td>".$rowOr['orderdate']."</td>";
+		echo "<td>".$rowOr['orderarrival']."</td>";
 		/* show Order Status         */
-			switch($rowOr['OrderStatus']){
+			switch($rowOr['orderstatus']){
 				case 0:
 					echo "<td class=\"status0\">正在处理...</td>";
 					break;
@@ -104,17 +104,17 @@ function showOrder($con){
 }
 //purchase processor
 if(isset($_POST['addOrder'])){
-	$MbId = $_SESSION['MbId'];
-	$BookId = $_POST['addOrder'];
-	$OrderCount = $_POST['OrderCount'];
-	$OrderAmount = $_POST['OrderAmount'];
-	$OrderPayment = $_POST['OrderPayment'];
-	$OrderDelivery = $_POST['OrderDelivery'];
-	$OrderDate = date('Y-m-d');
-	$sql = "INSERT INTO OrderInfo (MbId,BookId,OrderCount,";
-	$sql .= "OrderAmount,OrderPayment,OrderDelivery,OrderDate)";
-	$sql .= " VALUES ('$MbId','$BookId','$OrderCount','$OrderAmount',";
-	$sql .= "'$OrderPayment','$OrderDelivery','$OrderDate')";
+	$mbid = $_SESSION['mbid'];
+	$bookid = $_POST['addOrder'];
+	$ordercount = $_POST['ordercount'];
+	$orderamount = $_POST['orderamount'];
+	$orderpayment = $_POST['orderpayment'];
+	$orderdelivery = $_POST['orderdelivery'];
+	$orderdate = date('Y-m-d');
+	$sql = "INSERT INTO OrderInfo (mbid,bookid,ordercount,";
+	$sql .= "orderamount,orderpayment,orderdelivery,orderdate)";
+	$sql .= " VALUES ('$mbid','$bookid','$ordercount','$orderamount',";
+	$sql .= "'$orderpayment','$orderdelivery','$orderdate')";
 	$result = mysql_query($sql,$con);
 	if($result){
 		showOrder($con);

@@ -8,7 +8,7 @@
 	margin-right:1px;
 	width:189px;
 	background:red;
-	background-image:url(../image/line.gif);}
+	background-image:url(/image/line.gif);}
 .aside table {
 	margin: 8px 0px 0px 10px;}
 .aside th {
@@ -31,7 +31,7 @@
 /*--------------------------------*/
 .booklist {
 	float:left;
-	background-image:url(../image/booklist.gif);
+	background-image:url(/image/booklist.gif);
 	width:120px;
 	border:1px #0099CC dashed;}
 .booklist h6 {
@@ -40,7 +40,7 @@
 	padding:0px;
 	margin:0px;}
 .booklist label {
-	background-image:url(../image/list-title.gif);
+	background-image:url(/image/list-title.gif);
 	font-size:16px;
 	text-align:left;
 	padding:0px;
@@ -63,7 +63,7 @@
 .book-details {}
 .bookdetails {
 	float:left;
-	background-image:url(../image/line.gif);
+	background-image:url(/image/line.gif);
 	width:487px;
 	border-left:1px #0099CC dashed;}
 .bookdetails label {
@@ -73,7 +73,7 @@
 	margin:0px;}
 .book-catalog-content ul {
 	float:left;
-	background-image:url(../image/line.gif);}
+	background-image:url(/image/line.gif);}
 .book-catalog-content ul li {
 	float:left;
 	padding-left:5px;
@@ -81,7 +81,7 @@
 .book-content {
 	display:none;}
 .book-catalog,.book-content {
-	background-image:url(../image/line.gif);
+	background-image:url(/image/line.gif);
 	width:610px;}
 .book-catalog textarea,.book-content textarea {
 	background:#FFFFFF;
@@ -96,7 +96,7 @@
 	float:left;
 	width:100%;
 	text-align:left;
-	background-image:url(../image/line.gif);}
+	background-image:url(/image/line.gif);}
 .add-comment ul {
 	border-top:1px #0099CC dashed;
 	margin-bottom:1px;}
@@ -177,10 +177,10 @@
 	margin-right:1px;
 	border:1px #0099CC outset;
 	cursor:pointer;
-	background-image:url(../image/list-title.gif);}
+	background-image:url(/image/list-title.gif);}
 .bookrange .bg0 {}
 .bookrange .bg1 {
-	background-image:url(../image/line.gif);}
+	background-image:url(/image/line.gif);}
 .bookrange ul li {
 	width:187px;
 	padding:2px;

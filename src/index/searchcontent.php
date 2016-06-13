@@ -6,29 +6,29 @@
 <!-- leftClassNav.start -->
 <div id="leftClassNav" class="aside">
 <?php
-include_once("LeftAside.php");
+include_once("leftaside.php");
 ?>
 </div><!-- leftClassNav.stop -->
 <!-- bookContent.start -->
 <div class="bookcontent">
-<!-- AdImage.start -->
+<!-- adimage.start -->
 <div class="adImage">
 <!--<label>广告</label>-->
 <?php
 include_once("index/ad.php");
 ?>
-</div><!-- AdImage.stop -->
+</div><!-- adimage.stop -->
 <label>&nbsp;&nbsp;搜索结果</label>
 <?php
 /*...................SearchKeyGet..................*/
 $SearchKeyGet;
-$SearchKeyGet['BMClassId']   = isset($_GET['BMClassId'])  ? $_GET['BMClassId']  : null; 
-$SearchKeyGet['BCClassId']   = isset($_GET['BCClassId'])  ? $_GET['BCClassId']  : null;
-$SearchKeyGet['BookName']    = isset($_GET['BookName'])   ? $_GET['BookName']   : null;
-$SearchKeyGet['BookAuthor']  = isset($_GET['BookAuthor']) ? $_GET['BookAuthor'] : null;
-$SearchKeyGet['BookPress']   = isset($_GET['BookPress'])  ? $_GET['BookPress']  : null;
-$SearchKeyGet['BookISBN']    = isset($_GET['BookISBN'])   ? $_GET['BookISBN']   : null;
-$SearchKeyGet['BookIntroduction'] = isset($_GET['BookIntroduction'])? $_GET['BookIntroduction']: null;
+$SearchKeyGet['bmclassid']   = isset($_GET['bmclassid'])  ? $_GET['bmclassid']  : null; 
+$SearchKeyGet['bcclassid']   = isset($_GET['bcclassid'])  ? $_GET['bcclassid']  : null;
+$SearchKeyGet['bookname']    = isset($_GET['bookname'])   ? $_GET['bookname']   : null;
+$SearchKeyGet['bookauthor']  = isset($_GET['bookauthor']) ? $_GET['bookauthor'] : null;
+$SearchKeyGet['bookpress']   = isset($_GET['bookpress'])  ? $_GET['bookpress']  : null;
+$SearchKeyGet['bookisbn']    = isset($_GET['bookisbn'])   ? $_GET['bookisbn']   : null;
+$SearchKeyGet['bookintroduction'] = isset($_GET['bookintroduction'])? $_GET['bookintroduction']: null;
 $condition = null;
 $key       = null;
 $keyword   = null;
@@ -46,9 +46,9 @@ if ($keyword == "") {
 }
 /*---handle the backgroud post data and response the search results----*/
 	/*....................................*/	
-$sql = "SELECT BookId,BookName,BookPrice,BookImage FROM BookInfo";
+$sql = "SELECT bookid,bookname,bookprice,bookimage FROM bookinfo";
 $sql .= " WHERE ".$condition;
-$sql = $sql." ORDER BY BookPublishDate DESC";
+$sql = $sql." ORDER BY bookpublishdate DESC";
 	/*....................................*/
 $pagesize = 20;                                             /*每页显示的记录                 */
 $totalRows = mysql_num_rows(mysql_query($sql,$con));        /*记录总                       */
@@ -61,10 +61,10 @@ $sql = $sql." limit $start,$stop";
 $resultS = mysql_query($sql,$con) or exit(mysql_error());
 while($rowS = mysql_fetch_row($resultS)){
 	echo "<div class=\"booklist\">";
-	echo "<h6><a href=\"BookDetails.php?BookId=".$rowS[0]."\" >".$rowS[1]."</a></h6>";
+	echo "<h6><a href=\"bookdetails.php?bookid=".$rowS[0]."\" >".$rowS[1]."</a></h6>";
 	echo "<table>";
 	echo "<tr>";
-	echo "<td colspan=\"2\"><a href=\"BookDetails.php?BookId=".$rowS[0]."\" ><img src=\"".$rowS[3]."\" /></a></td></tr>";
+	echo "<td colspan=\"2\"><a href=\"bookdetails.php?bookid=".$rowS[0]."\" ><img src=\"".$rowS[3]."\" /></a></td></tr>";
 	echo "<tr>";
 	echo "<td>定&nbsp;&nbsp;&nbsp;&nbsp;价:</td><td>".$rowS[2]."</td></tr>";
 	echo "<tr>";
@@ -120,7 +120,7 @@ echo "<div class=\"clear\"></div></div>";
 <!-- rangelist.start -->
 <div class="ranglist">
 <?php
-include_once("RangeList.php");
+include_once("rangelist.php");
 ?>
 </div><!-- ranglist.stop -->
 <div class="clear"></div></div><!-- content.stop -->

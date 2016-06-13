@@ -1,6 +1,6 @@
 <?php
 session_start();
-require('../script/php/validateUser.php');
+require('../script/php/validateuser.php');
 require('../model/conn.php');
 
 /* insert input form model ...........        */
@@ -40,14 +40,14 @@ function showMainClass($con) {
 	/*	table body                       */
 	while ($rowBM = mysql_fetch_array($result)) {
 		echo "<tr>";
-		echo "<td>".$rowBM['BMClassId']."</td>";
+		echo "<td>".$rowBM['bmclassid']."</td>";
 		echo "<td>";
-			getinput($rowBM['BMClassName'],$rowBM['BMClassId']);
+			getinput($rowBM['bmclassname'],$rowBM['bmclassid']);
 		echo "</td>";
 		echo "<td>";
-			echo "<select name=\"__ID".$rowBM['BMClassId']."\">";
-			echo "<option value=\"".$rowBM['BMClassLabel']."\">";
-			switch ($rowBM['BMClassLabel']){
+			echo "<select name=\"__ID".$rowBM['bmclassid']."\">";
+			echo "<option value=\"".$rowBM['bmclasslabel']."\">";
+			switch ($rowBM['bmclasslabel']){
 			case 0:
 				echo "是";
 				break;
@@ -61,10 +61,10 @@ function showMainClass($con) {
 			echo "<option value=\"1\">否</option>";
 			echo "</select>";
 		echo "</td>";
-		echo "<td>".$rowBM['BMClassViewCount']."</td>";
+		echo "<td>".$rowBM['bmclassviewcount']."</td>";
 		echo "<td>";
-		  echo "<button type=\"button\" onclick=\"return updateMC('".$rowBM['BMClassId']."');\">更新</button>";
-		  echo "<button type=\"button\" onclick=\"return deleteMC('".$rowBM['BMClassId']."');\">删除</button>";
+		  echo "<button type=\"button\" onclick=\"return updateMC('".$rowBM['bmclassid']."');\">更新</button>";
+		  echo "<button type=\"button\" onclick=\"return deleteMC('".$rowBM['bmclassid']."');\">删除</button>";
 		echo "</td>";
 		echo "</tr>";
 	}
@@ -72,9 +72,9 @@ function showMainClass($con) {
 	echo
 	   "<tr>
 			<td id=\"MCtips\"></td>
-			<td><input type=\"text\" name=\"BMClassName\" size=\"12\" /></td>
+			<td><input type=\"text\" name=\"bmclassname\" size=\"12\" /></td>
 			<td>
-				<select name=\"BMClassLabel\">
+				<select name=\"bmclasslabel\">
 					<option value=\"0\">是</option>
 					<option value=\"1\">否</option>
 				</select>
@@ -134,11 +134,11 @@ if (isset($_GET['BMClass'])) {
 }
 /* add bookMainClass .	.					*/
 if (isset($_POST['addMC'])) {
-	$BMClassName  = $_POST['addMC'];
-	$BMClassLabel = $_POST['BMClassLabel'];
+	$bmclassname  = $_POST['addMC'];
+	$bmclasslabel = $_POST['bmclasslabel'];
 	/*validate the data uniqueness ...		*/
 	$sql  = " SELECT * FROM bookMainClass";
-	$sql .= " WHERE BMClassName = '$BMClassName'";
+	$sql .= " WHERE bmclassname = '$bmclassname'";
 	
 	$result = mysql_query($sql,$con);
 	$num 	= mysql_num_rows($result);
@@ -147,9 +147,9 @@ if (isset($_POST['addMC'])) {
 	}
 	/*add bookMainClass start				*/
 	$sql  = " INSERT INTO bookMainClass";
-	$sql .= " (BMClassName,BMClassLabel)";
+	$sql .= " (bmclassname,bmclasslabel)";
 	$sql .= " VALUES";
-	$sql .= " ('$BMClassName','$BMClassLabel')";
+	$sql .= " ('$bmclassname','$bmclasslabel')";
 	$result = mysql_query($sql,$con);
 	if ($result) {
 		showMainClass($con);
@@ -160,13 +160,13 @@ if (isset($_POST['addMC'])) {
 }
 /*update bookMainClass						*/
 if (isset($_POST['updateMC'])) {
-	$BMClassId    = $_POST['updateMC'];
-	$BMClassName  = $_POST['BMClassName'];
-	$BMClassLabel = $_POST['BMClassLabel'];
+	$bmclassid    = $_POST['updateMC'];
+	$bmclassname  = $_POST['bmclassname'];
+	$bmclasslabel = $_POST['bmclasslabel'];
 	
 	$sql  = " UPDATE bookMainClass ";
-	$sql .= " SET BMClassName = '$BMClassName',BMClassLabel = '$BMClassLabel'";
-	$sql .= " WHERE BMClassId = '$BMClassId'";
+	$sql .= " SET bmclassname = '$bmclassname',bmclasslabel = '$bmclasslabel'";
+	$sql .= " WHERE bmclassid = '$bmclassid'";
 	
 	$result = mysql_query($sql,$con);
 	if ($result) {
@@ -178,9 +178,9 @@ if (isset($_POST['updateMC'])) {
 }
 /*delete bookMainClass 						*/
 if (isset($_POST['deleteMC'])) {
-	$BMClassId = $_POST['deleteMC'];
+	$bmclassid = $_POST['deleteMC'];
 	$sql	   = " DELETE FROM bookMainClass";
-	$sql	  .= " WHERE BMClassId = '$BMClassId'";
+	$sql	  .= " WHERE bmclassid = '$bmclassid'";
 	
 	$result = mysql_query($sql,$con);
 	if ($result) {

@@ -1,5 +1,5 @@
 <?php
-$con = mysql_connect("localhost","root","ruby");
+$con = mysql_connect("localhost","root","root");
 if(!$con){
 	die("Error Connected:".mysql_error());
 }

@@ -1,4 +1,4 @@
-// JavaScript Document
+// Javascript Document
 function fold(id){
 	var foldBox = document.getElementById(id).style.display;
 	if(foldBox == "none"){

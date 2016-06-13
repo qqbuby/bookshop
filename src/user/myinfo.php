@@ -1,9 +1,9 @@
 ﻿<?php
 session_start();
-include_once("../script/php/validateMember.php");
+include_once("../script/php/validatemember.php");
 include_once("../model/conn.php");
 $sql = "SELECT * FROM memberInfo ";
-$sql .= "WHERE MbId = '".$_SESSION['MbId']."' AND MbName='".$_SESSION['MbName']."'";
+$sql .= "WHERE mbid = '".$_SESSION['mbid']."' AND mbname='".$_SESSION['mbname']."'";
 $result = mysql_query($sql,$con);
 while($rowM = mysql_fetch_array($result)){
 	$flag = 1;
@@ -15,48 +15,48 @@ while($rowM = mysql_fetch_array($result)){
 		}
 	}
 	//.................
-	$MbPassword = $rowM['MbPassword'];
-	$MbLevel = $rowM['MbLevel'];
-	$MbImage = $rowM['MbImage'];
-	$MbGender = $rowM['MbGender'];
-	$MbBirthday = $rowM['MbBirthday'];
-	$MbBirthday = ($MbBirthday == '') ? 'Example:1988-12-18' : $MbBirthday;
-	$MbCountry = $rowM['MbCountry'];
-	$MbProvince = $rowM['MbProvince'];
-	$MbCity = $rowM['MbCity'];
-	$MbPostalCode =$rowM['MbPostalCode'];
-	$MbAddress = $rowM['MbAddress'];
-	$MbPhone = $rowM['MbPhone'];
-	$MbMobile = $rowM['MbMobile'];
-	$MbTrueName = $rowM['MbTrueName'];
-	$MbEmail = $rowM['MbEmail'];
-	$MbQuestion = $rowM['MbQuestion'];
-	$MbAnswer = $rowM['MbAnswer'];
+	$mbpassword = $rowM['mbpassword'];
+	$mblevel = $rowM['mblevel'];
+	$mbimage = $rowM['mbimage'];
+	$mbgender = $rowM['mbgender'];
+	$mbbirthday = $rowM['mbbirthday'];
+	$mbbirthday = ($mbbirthday == '') ? 'Example:1988-12-18' : $mbbirthday;
+	$mbcountry = $rowM['mbcountry'];
+	$mbprovince = $rowM['mbprovince'];
+	$mbcity = $rowM['mbcity'];
+	$mbpostalcode =$rowM['mbpostalcode'];
+	$mbaddress = $rowM['mbaddress'];
+	$mbphone = $rowM['mbphone'];
+	$mbmobile = $rowM['mbmobile'];
+	$mbtruename = $rowM['mbtruename'];
+	$mbemail = $rowM['mbemail'];
+	$mbquestion = $rowM['mbquestion'];
+	$mbanswer = $rowM['mbanswer'];
 }
 ?>
 <?php
 //perfect personal information
-if(isset($_POST['MbGender'])){
-	$MbGender = $_POST['MbGender'];
-	$MbBirthday = $_POST['MbBirthday'];
-	$MbCountry = $_POST['MbCountry'];
-	$MbProvince = $_POST['MbProvince'];
-	$MbCity = $_POST['MbCity'];
-	$MbPostalCode =$_POST['MbPostalCode'];
-	$MbAddress = $_POST['MbAddress'];
-	$MbPhone = $_POST['MbPhone'];
-	$MbMobile = $_POST['MbMobile'];
-	$MbTrueName = $_POST['MbTrueName'];
-	$MbEmail = $_POST['MbEmail'];
-	$MbQuestion = $_POST['MbQuestion'];
-	$MbAnswer = $_POST['MbAnswer'];
+if(isset($_POST['mbgender'])){
+	$mbgender = $_POST['mbgender'];
+	$mbbirthday = $_POST['mbbirthday'];
+	$mbcountry = $_POST['mbcountry'];
+	$mbprovince = $_POST['mbprovince'];
+	$mbcity = $_POST['mbcity'];
+	$mbpostalcode =$_POST['mbpostalcode'];
+	$mbaddress = $_POST['mbaddress'];
+	$mbphone = $_POST['mbphone'];
+	$mbmobile = $_POST['mbmobile'];
+	$mbtruename = $_POST['mbtruename'];
+	$mbemail = $_POST['mbemail'];
+	$mbquestion = $_POST['mbquestion'];
+	$mbanswer = $_POST['mbanswer'];
 	$sql = "UPDATE memberInfo ";
 	$sql .= "SET ";
-	$sql .= "MbGender='$MbGender',MbCountry='$MbCountry',MbProvince='$MbProvince',";
-	$sql .= "MbBirthday='$MbBirthday',MbCity='$MbCity',MbPostalCode='$MbPostalCode',";
-	$sql .= "MbAddress='$MbAddress',MbPhone='$MbPhone',MbMobile='$MbMobile',";
-	$sql .= "MbTrueName='$MbTrueName',MbEmail='$MbEmail',MbQuestion='$MbQuestion',MbAnswer='$MbAnswer'";
-	$sql .= " WHERE MbId = '".$_SESSION['MbId']."'";
+	$sql .= "mbgender='$mbgender',mbcountry='$mbcountry',mbprovince='$mbprovince',";
+	$sql .= "mbbirthday='$mbbirthday',mbcity='$mbcity',mbpostalcode='$mbpostalcode',";
+	$sql .= "mbaddress='$mbaddress',mbphone='$mbphone',mbmobile='$mbmobile',";
+	$sql .= "mbtruename='$mbtruename',mbemail='$mbemail',mbquestion='$mbquestion',mbanswer='$mbanswer'";
+	$sql .= " WHERE mbid = '".$_SESSION['mbid']."'";
 	$result = mysql_query($sql,$con);
 	if($result){
 		exit('修改成功!');
@@ -68,7 +68,7 @@ if(isset($_POST['MbGender'])){
 /*	CHECK THE OLD PASSWORD				*/
 if(isset($_POST['oldPassword'])){
 	$oldPassword = $_POST['oldPassword'];
-	if($MbPassword == $oldPassword){
+	if($mbpassword == $oldPassword){
 		exit(" ");
 	} else {
 		exit('密码不符');
@@ -78,8 +78,8 @@ if(isset($_POST['oldPassword'])){
 if(isset($_POST['newPassword'])){
 	$newPassword = $_POST['newPassword'];
 	$sql = "UPDATE memberInfo ";
-	$sql .= "SET MbPassword = '$newPassword' ";
-	$sql .= "WHERE MbId = '".$_SESSION['MbId']."'";
+	$sql .= "SET mbpassword = '$newPassword' ";
+	$sql .= "WHERE mbid = '".$_SESSION['mbid']."'";
 	$reuslt = mysql_query($sql,$con);
 	if($result){
 		exit('修改成功!');
@@ -132,62 +132,62 @@ if(!isset($_GET['myInfo'])){
 		<th colspan="4">个人资料</th>
 	</tr>
 	<tr>
-		<td>昵称</td><td><?php echo $_SESSION['MbName']; ?></td>
-		<td>账号</td><td><?php echo $_SESSION['MbId'] ?></td>
+		<td>昵称</td><td><?php echo $_SESSION['mbname']; ?></td>
+		<td>账号</td><td><?php echo $_SESSION['mbid'] ?></td>
 	</tr>
 	<tr>
-		<td>等级</td><td><?php echo $MbLevel; ?></td>
-		<td>头衔</td><td><?php echo "<img src=\"$MbImage\" />"; ?></td>
+		<td>等级</td><td><?php echo $mblevel; ?></td>
+		<td>头衔</td><td><?php echo "<img src=\"$mbimage\" />"; ?></td>
 	</tr>
 	<tr>
 		<td>性别</td><td>
-			<select name="MbGender">
-				<option selected="selected" value="<?php echo $MbGender; ?>"><?php echo $MbGender; ?></option>
+			<select name="mbgender">
+				<option selected="selected" value="<?php echo $mbgender; ?>"><?php echo $mbgender; ?></option>
 				<?php 
 					echo "<option value=\"";
-					echo ($MbGender=='男') ? '女">女' : '男">男';
+					echo ($mbgender=='男') ? '女">女' : '男">男';
 					echo"</option>"; 
-					echo ($MbGender=='') ? "<option value=\"女\">女</option>" : null; 
+					echo ($mbgender=='') ? "<option value=\"女\">女</option>" : null; 
 				?>
 			</select></td>
 		<td>生日</td><td>
-				<?php echo "<input type=\"text\" name=\"MbBirthday\" value=\"$MbBirthday\" />"; ?></td>
+				<?php echo "<input type=\"text\" name=\"mbbirthday\" value=\"$mbbirthday\" />"; ?></td>
 	</tr>
 	<tr>
 		<td>国家/地区</td><td>
-			<?php echo "<input type=\"text\" name=\"MbCountry\" value=\"$MbCountry\" />"; ?></td>
+			<?php echo "<input type=\"text\" name=\"mbcountry\" value=\"$mbcountry\" />"; ?></td>
 		<td>省份</td><td>
-			<?php echo "<input type=\"text\" name=\"MbProvince\" value=\"$MbProvince\" />"; ?></td>
+			<?php echo "<input type=\"text\" name=\"mbprovince\" value=\"$mbprovince\" />"; ?></td>
 	</tr>
 	<tr>
 		<td>城市</td><td>
-			<?php echo "<input type=\"text\" name=\"MbCity\" value=\"$MbCity\" />"; ?></td>
+			<?php echo "<input type=\"text\" name=\"mbcity\" value=\"$mbcity\" />"; ?></td>
 		<td>邮政编码</td><td>
-			<?php echo "<input type=\"text\" name=\"MbPostalCode\" value=\"$MbPostalCode\" />"; ?></td>
+			<?php echo "<input type=\"text\" name=\"mbpostalcode\" value=\"$mbpostalcode\" />"; ?></td>
 	</tr>
 	<tr>
 		<td>详细地址</td><td colspan="3">
 			<?php 
-				echo "<input type=\"text\" size=\"68\" name=\"MbAddress\" value=\"$MbAddress\" />";
+				echo "<input type=\"text\" size=\"68\" name=\"mbaddress\" value=\"$mbaddress\" />";
 			?></td>
 	</tr>
 	<tr>
 		<td>联系电话</td><td>
-			<?php echo "<input type=\"text\" name=\"MbPhone\" value=\"$MbPhone\" />"; ?></td>
+			<?php echo "<input type=\"text\" name=\"mbphone\" value=\"$mbphone\" />"; ?></td>
 		<td>手机号码</td><td>
-			<?php echo "<input type=\"text\" name=\"MbMobile\" value=\"$MbMobile\" />"; ?></td>
+			<?php echo "<input type=\"text\" name=\"mbmobile\" value=\"$mbmobile\" />"; ?></td>
 	</tr>
 	<tr>
 		<td>真实姓名</td><td>
-			<?php echo "<input type=\"text\" name=\"MbTrueName\" value=\"$MbTrueName\" />"; ?></td>
+			<?php echo "<input type=\"text\" name=\"mbtruename\" value=\"$mbtruename\" />"; ?></td>
 		<td>电子邮件</td><td>
-			<?php echo "<input type=\"text\" name=\"MbEmail\" value=\"$MbEmail\" />"; ?></td>
+			<?php echo "<input type=\"text\" name=\"mbemail\" value=\"$mbemail\" />"; ?></td>
 	</tr>
 	<tr>
 		<td>验证问题</td><td>
-			<?php echo "<input type=\"text\" name=\"MbQuestion\" value=\"$MbQuestion\" />"; ?></td>
+			<?php echo "<input type=\"text\" name=\"mbquestion\" value=\"$mbquestion\" />"; ?></td>
 		<td>验证答案</td><td>
-			<?php echo "<input type=\"text\" name=\"MbAnswer\" value=\"$MbAnswer\" />"; ?></td>
+			<?php echo "<input type=\"text\" name=\"mbanswer\" value=\"$mbanswer\" />"; ?></td>
 	</tr>
 	<tr>
 		<td colspan="2" style="color:#FF0000;">

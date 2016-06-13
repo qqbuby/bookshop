@@ -1,4 +1,4 @@
-// JavaScript Document
+// Javascript Document
 function getXMLHttpObject(){
 	var xmlHttp=null;
 	try{
