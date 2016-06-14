@@ -1,0 +1,190 @@
+@charset "utf-8";
+/* CSS Document */
+#content {}
+/*........www.hao123.com.........*/
+/*--------------------------------------*/
+.aside {
+	float:left;
+	margin-right:1px;
+	width:189px;
+	background:red;
+	background-image:url(/image/line.gif);}
+.aside table {
+	margin: 8px 0px 0px 10px;}
+.aside th {
+	text-align:left;
+	height:30px;}
+.aside td {
+	text-align:left;
+	width:45px;
+	height:31px;}
+/*---------------------------------*/
+.bookcontent {
+	float:left;
+	width:610px;
+	margin-top:2px;}
+.bookcontent label {
+	margin-left:22px;
+	display:block;
+	padding:0px;
+	text-align:left;}
+/*--------------------------------*/
+.booklist {
+	float:left;
+	background-image:url(/image/booklist.gif);
+	width:120px;
+	border:1px #0099CC dashed;}
+.booklist h6 {
+	font-size:16px;
+	text-align:left;
+	padding:0px;
+	margin:0px;}
+.booklist label {
+	background-image:url(/image/list-title.gif);
+	font-size:16px;
+	text-align:left;
+	padding:0px;
+	margin:0px;}
+.booklist img {
+	width:120px;
+	height:120px;
+	float:left;}
+.booklist table{
+	font-size:14px;
+	width:120px;
+	text-align:left;
+	float:left;}
+.booklist table td {
+	width:60px;}
+.booklist talbe th {
+	margin:0px;
+	padding:0px;
+	text-align:left;}
+.book-details {}
+.bookdetails {
+	float:left;
+	background-image:url(/image/line.gif);
+	width:487px;
+	border-left:1px #0099CC dashed;}
+.bookdetails label {
+	font-size:14px;
+	text-align:left;
+	padding:2px;
+	margin:0px;}
+.book-catalog-content ul {
+	float:left;
+	background-image:url(/image/line.gif);}
+.book-catalog-content ul li {
+	float:left;
+	padding-left:5px;
+	margin:0;}
+.book-content {
+	display:none;}
+.book-catalog,.book-content {
+	background-image:url(/image/line.gif);
+	width:610px;}
+.book-catalog textarea,.book-content textarea {
+	background:#FFFFFF;
+	margin:0 10 0 10;
+	width:580px;
+	height:150px;
+	margin-bottom:10px;}
+.book-comment {
+	float:left;
+	width:100%;}
+.add-comment {
+	float:left;
+	width:100%;
+	text-align:left;
+	background-image:url(/image/line.gif);}
+.add-comment ul {
+	border-top:1px #0099CC dashed;
+	margin-bottom:1px;}
+.add-comment ul li {
+	float:left;
+	padding-left:5px;}
+.add-comment label {
+	margin-left:0px;
+	padding:0px;
+	display:inline;}
+#commentTitle {
+	margin-left:10px;
+	padding:0px;
+	width:400px;}
+#commentContent {
+	margin-left:8px;
+	padding:0px;
+	width:400px;
+	height:120px;}
+.comment-content {
+	font-weight:normal;
+	margin-bottom:5px;
+	border:1px solid #0099CC;
+	text-align:left;}
+.comment-content hr {
+	margin:0px;
+	padding:0px;}
+.comment-content pre {
+	margin:0px;
+	border-top:1px solid ;}
+.comment-content label {
+	margin:0px;
+	text-align:right;}
+.comment-content ul {
+}
+.comment-content ul li {
+	float:right;}
+/*---------------------------*/
+.pagecode {
+	float:left;
+	width:608px;
+	padding:0 50px 0 50px;
+	background-color:#EEFFFF;}
+.pagecode label {
+	float:left;
+	color:#CC99FF;
+	padding:0 10 0 10;
+	width:78px;
+	margin:1px;}
+.pagecode label a  {
+	color:#6633CC;
+	text-decoration:none;}
+.pagecode label a:link {
+	color:#6633CC;
+	text-decoration:none;}
+.pagecode label a:visited {
+	color:#6633CC;
+	text-decoration:none;}
+.pagecode label a:hover {
+	color:blue;
+	text-decoration:none;}
+/*-------------------------*/
+.ranglist {
+	float:left;
+	width:189px;
+	margin-left:1px;
+	margin-top:2px;}
+.news {
+	width:189px;
+	height:220px;}
+.bookrange {
+	width:189px;}
+.news label,.bookrange label {
+	display:block;
+	width:187px;
+	margin-top:1px;
+	margin-left:1px;
+	margin-right:1px;
+	border:1px #0099CC outset;
+	cursor:pointer;
+	background-image:url(/image/list-title.gif);}
+.bookrange .bg0 {}
+.bookrange .bg1 {
+	background-image:url(/image/line.gif);}
+.bookrange ul li {
+	width:187px;
+	padding:2px;
+	margin-left:1px;
+	margin-right:1px;
+	text-align:left;}
+

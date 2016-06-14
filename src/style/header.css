@@ -1,0 +1,169 @@
+@charset "utf-8";
+/* CSS Document */
+#header{
+	margin-top:10px;
+	margin-bottom:5px;}
+#topnav{
+	background-image:url(/image/line.gif);
+	margin-bottom:2px;}
+#topnav .logina ul{
+	margin-right:10px;}
+#topnav .logina li{
+	float:right;}
+#topnav .curTime ul{
+	margin-left:10px;}
+#topnav .curTime li{
+	margin-right:10px;
+	float:left;}
+#topbanner{
+	width:100%;
+	height:85px;}
+#leftbanner{
+	float:left;
+	width:189px;
+	height:85px;
+	margin-right:1px;}
+#rightbanner{
+	float:left;
+	width:800px;
+	height:85px;}
+#weather_search{
+	width:100%;
+	height:100px;}
+#weather{
+	float:left;
+	width:187px;
+	height:100%;
+	margin-right:1px;
+	border-left:1px #0099CC solid;
+	border-right:1px #0099CC solid;}
+#search{
+	float:left;
+	width:800px;
+	height:100%;}
+#search ul{
+	margin-top:5px;
+	padding-left:80px;}
+#search ul li{
+	text-align:center; 
+	line-height:18px;
+	width:60px;
+	background:#e8ece8;
+	font-size:13px;
+	cursor:pointer;
+	border-right:#fcfff7 3px solid;}
+#search .cur {
+	background: #38B830;
+	color: #f8fcf0;
+	font-weight: bold;
+}
+#search A:link {
+	color: #687070
+}
+#search A:visited {
+	color: #687070
+}
+#search ul li{
+	float:left;}
+#booksearch {
+	float:left;
+	width:598px;
+	height:60%;
+	padding-top:12px;
+	background:url(/image/line.gif);}
+#booktips {
+	float:left;
+	width:200px;
+	height:70%;
+	background:url(/image/line.gif);}
+#booksearch img {
+	width:79px;
+	height:27px;}
+#booksearch input {
+	font-size:16px;
+	padding-left:2px;
+	width:355px;
+	height:1.4em;
+	padding-top:3px;}
+#booksearch button {
+	font-size:14px;
+	line-height:2em;
+	width:6.8em;
+	height:2.3em;}
+#dynamicnav{
+	border:solid #0099CC 1px;}
+/*loginBoxstyle*/
+.title {
+	width:100%;
+	height:25px;
+	border-bottom:2px #0099CC solid;}
+.title ul{
+	margin-top:5px;
+	padding-left:80px;}
+.title ul li{
+	float:left;
+	text-align:center; 
+	line-height:25px;
+	width:60px;
+	background:#e8ece8;
+	font-size:14px;
+	cursor:pointer;
+	border-right:#fcfff7 3px solid;}
+.title .cur {
+	BACKGROUND:#0099CC; COLOR: #f8fcf0; FONT-WEIGHT: bold
+}
+.title A:link {
+	COLOR: #687070
+}
+.title A:visited {
+	COLOR: #687070
+}
+#login {
+	position:absolute;
+	right:0px;
+	left:0px;
+	top:30px;
+	margin:0 auto;
+	width:477px;
+	height:433px;
+	border:2px #0099CC solid;
+	display:none;
+	background-image:url(/image/line.gif)}
+#login td{
+	text-align:left;
+	margin:0px;
+	padding:1px;
+	vertical-align:top;}
+.login{
+	padding-left:10px;
+	margin-top:5px;
+	width:100%;
+	height:400px;
+	position:absolute;
+	left:0px;
+	top:33px;
+	display:block;}
+.register {
+	padding-left:10px;
+	margin-top:5px;
+	width:100%;
+	height:400px;
+	position:absolute;
+	left:0px;
+	top:33px;
+	display:none;}
+.login,.register input {
+	font-size:16px;
+	width:155px;
+	height:1.4em;
+	padding-top:3px;}
+.login,.register button {
+	font-size:14px;
+	line-height:2em;}
+.warning {
+	font-size:12px;
+	color:#FF0000;
+	display:none;}
+.note {
+	font-size:12px;
+	color:#CC00CC;}
